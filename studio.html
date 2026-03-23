@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>303 Studio</title>
+
+  <!-- Studio shell + shared primitives -->
+  <link rel="stylesheet" href="css/studio.css">
+
+  <!-- Per-instrument styles -->
+  <link rel="stylesheet" href="css/tb303.css">
+  <link rel="stylesheet" href="css/tr808.css">
+</head>
+<body>
+
+<!-- ── Studio header ─────────────────────────────────────────── -->
+<header class="studio-header">
+  <div class="studio-logo">
+    <span class="studio-logo-main">303 STUDIO</span>
+    <span class="studio-logo-sub">Multi-Instrument</span>
+  </div>
+  <div class="studio-sep"></div>
+  <button id="btnPlayAll" class="studio-btn btn-play-all">▶ Play All</button>
+  <button id="btnStopAll" class="studio-btn btn-stop-all">■ Stop All</button>
+  <div class="studio-sep"></div>
+  <div class="master-wrap">
+    <span class="master-label">Master</span>
+    <div id="masterKnob" class="knob-sm"><div id="masterInd" class="knob-indicator"></div></div>
+  </div>
+  <div class="studio-sep"></div>
+  <div class="master-bpm-wrap">
+    <span class="master-label">BPM</span>
+    <div id="masterBpm" class="master-bpm-d">128</div>
+    <div class="bpm-arrows3">
+      <div id="masterBpmUp" class="bpm-arr">▲</div>
+      <div id="masterBpmDn" class="bpm-arr">▼</div>
+    </div>
+  </div>
+  <div class="studio-spacer"></div>
+  <div class="add-wrap">
+    <button class="add-btn" onclick="toggleAddMenu()">＋ Add Instrument</button>
+    <div id="addMenu" class="add-menu">
+      <!-- Populated by studio.js from StudioInstruments registry -->
+    </div>
+  </div>
+</header>
+
+<!-- ── Instrument rack ───────────────────────────────────────── -->
+<main id="rack" class="rack">
+  <div id="emptyMsg" class="empty-rack">Loading instruments…</div>
+</main>
+
+<!-- ── Core utilities (load first) ──────────────────────────── -->
+<script src="js/core/utils.js"></script>
+<script src="js/core/knob.js"></script>
+<script src="js/core/bus.js"></script>
+
+<!-- ── TB-303 ────────────────────────────────────────────────── -->
+<script src="js/instruments/tb303/tb303-engine.js"></script>
+<script src="js/instruments/tb303/tb303-seq.js"></script>
+<script src="js/instruments/tb303/tb303-presets.js"></script>
+<script src="js/instruments/tb303/tb303.js"></script>
+
+<!-- ── TR-808 ────────────────────────────────────────────────── -->
+<script src="js/instruments/tr808/tr808-engine.js"></script>
+<script src="js/instruments/tr808/tr808-seq.js"></script>
+<script src="js/instruments/tr808/tr808-presets.js"></script>
+<script src="js/instruments/tr808/tr808.js"></script>
+
+<!-- ── New instruments: add CSS link + 4 script tags above this line ── -->
+
+<!-- ── Studio core (must be last) ───────────────────────────── -->
+<script src="js/core/studio.js"></script>
+
+</body>
+</html>

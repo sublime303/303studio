@@ -1,0 +1,111 @@
+/* ═══════════════════════════════════════════════════
+   TB-303 INSTRUMENT STYLES
+   Owner: TB-303 agent — do not edit from other agents
+   ═══════════════════════════════════════════════════ */
+
+.tb303-card{background:linear-gradient(170deg,#d0d0d0,#b8b8b8);padding:14px 16px 16px;position:relative}
+.tb303-card::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(90deg,rgba(255,255,255,0.04) 0,rgba(255,255,255,0) 1px,rgba(255,255,255,0) 3px,rgba(255,255,255,0.04) 4px);
+}
+.tb303-header-bar{background:#c0450a}
+.tb303-header-bar .inst-title{color:#fff}
+.tb303-header-bar .inst-type-tag{background:rgba(0,0,0,0.3);color:#ffcc99}
+
+/* Dark panel sections inside the 303 */
+.tb3-dark{
+  background:linear-gradient(180deg,#323232,#262626);
+  border-radius:7px;padding:12px 14px;margin-bottom:8px;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,0.6),inset 0 -1px 0 rgba(255,255,255,0.04);
+}
+.tb3-dark:last-child{margin-bottom:0}
+.panel-lbl{font-size:8px;color:#666;text-transform:uppercase;letter-spacing:2px;margin-bottom:9px;text-align:center}
+
+/* Controls row */
+.tb3-controls{display:flex;align-items:center;gap:5px}
+.vdivider{width:1px;height:68px;background:linear-gradient(180deg,transparent,#555,transparent);margin:0 5px}
+.wave-sect{display:flex;flex-direction:column;align-items:center;gap:4px}
+.wave-lbl{font-size:8px;color:#777;letter-spacing:1px;text-transform:uppercase}
+.wave-btn{
+  width:50px;height:20px;background:#484848;border:1px solid #222;border-radius:3px;
+  color:#999;font-size:9px;font-weight:bold;letter-spacing:1px;cursor:pointer;
+  box-shadow:0 2px 4px rgba(0,0,0,0.5);transition:all 0.1s;
+}
+.wave-btn+.wave-btn{margin-top:3px}
+.wave-btn.active{background:#c0450a;color:#fff;box-shadow:0 0 8px rgba(192,69,10,0.5)}
+
+/* Step sequencer */
+.steps-row{display:flex;gap:3px;justify-content:center;margin-bottom:10px}
+.step-btn{
+  width:46px;height:50px;background:linear-gradient(180deg,#424242,#323232);
+  border:2px solid #1a1a1a;border-radius:4px;cursor:pointer;position:relative;
+  box-shadow:0 2px 4px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.06);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+  transition:border-color 0.08s;flex-shrink:0;
+}
+.step-btn:active{transform:translateY(1px)}
+.step-num{font-size:8px;color:#555;font-weight:bold}
+.step-led{width:8px;height:8px;border-radius:50%;background:#1e0a00;box-shadow:inset 0 1px 2px rgba(0,0,0,0.7);transition:all 0.04s}
+.step-note-d{font-size:8px;color:#444;font-weight:bold;min-height:10px}
+.step-btn.selected{border-color:#fff;background:linear-gradient(180deg,#505050,#3a3a3a)}
+.step-btn.playing .step-led{background:#ff9900;box-shadow:0 0 7px rgba(255,153,0,0.9),0 0 14px rgba(255,153,0,0.4)}
+.step-btn.has-note .step-note-d{color:#e8620a}
+.step-btn.is-rest .step-note-d{color:#3a3a3a;font-style:italic}
+.step-a{position:absolute;top:2px;right:2px;font-size:7px;color:#ff6600;font-weight:bold;display:none}
+.step-s{position:absolute;top:2px;left:2px;font-size:7px;color:#6699ff;font-weight:bold;display:none}
+.step-btn.has-accent .step-a{display:block}
+.step-btn.has-slide  .step-s{display:block}
+
+/* Note entry / piano */
+.note-entry{display:flex;align-items:flex-start;gap:14px;justify-content:center}
+.piano-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
+.piano{position:relative;height:58px;width:252px;flex-shrink:0}
+.white-key{
+  position:absolute;height:58px;background:linear-gradient(180deg,#e8e8e8,#d4d4d4);
+  border:1px solid #888;border-radius:0 0 3px 3px;cursor:pointer;z-index:1;
+  display:flex;align-items:flex-end;justify-content:center;padding-bottom:3px;transition:background 0.05s;
+}
+.white-key span{font-size:7px;color:#555;font-weight:bold}
+.white-key:hover{background:linear-gradient(180deg,#ffd080,#ffaa44)}
+.white-key.active{background:linear-gradient(180deg,#ff9933,#e87722)!important}
+.black-key{
+  position:absolute;height:36px;width:22px;background:linear-gradient(180deg,#2a2a2a,#111);
+  border:1px solid #000;border-radius:0 0 3px 3px;cursor:pointer;z-index:2;top:0;transition:background 0.05s;
+}
+.black-key:hover{background:linear-gradient(180deg,#c04408,#8a2800)}
+.black-key.active{background:linear-gradient(180deg,#ff6600,#cc4400)!important}
+
+/* Step properties */
+.step-props{display:flex;flex-direction:column;gap:6px;padding-top:2px}
+.prop-row{display:flex;gap:5px}
+.prop-btn{
+  padding:5px 10px;background:#3a3a3a;border:1px solid #2a2a2a;border-radius:3px;
+  color:#888;font-size:9px;font-weight:bold;cursor:pointer;transition:all 0.1s;
+  text-transform:uppercase;white-space:nowrap;
+}
+.prop-btn:hover{background:#4a4a4a;color:#bbb}
+.prop-btn.active{background:#c0450a;color:#fff;box-shadow:0 0 6px rgba(192,69,10,0.4)}
+.prop-btn.slide-on{background:#2244aa;color:#aaccff}
+
+/* Transport */
+.tb3-transport{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.tb3-btns{display:flex;gap:7px}
+.btn-play3{background:linear-gradient(180deg,#1e5e1e,#144814);color:#88dd88}
+.btn-play3:hover{background:linear-gradient(180deg,#236823,#185018)}
+.btn-play3.on{background:linear-gradient(180deg,#33cc33,#228822);color:#fff;box-shadow:0 0 10px rgba(51,204,51,0.5)}
+.btn-stop3{background:linear-gradient(180deg,#7a1a1a,#5a1010);color:#ffaaaa}
+.btn-rec3{background:linear-gradient(180deg,#3a3a3a,#2a2a2a);color:#888;border:1px solid #333}
+.btn-rec3.on{background:linear-gradient(180deg,#cc2222,#881111);color:#fff;box-shadow:0 0 8px rgba(204,34,34,0.4)}
+.bpm-wrap3{display:flex;align-items:center;gap:7px}
+.bpm-lbl3{font-size:8px;color:#777;letter-spacing:2px;text-transform:uppercase}
+.bpm-d3{
+  background:#0a0a0a;border:1px solid #3a3a3a;border-radius:3px;padding:4px 7px;
+  color:#ff7700;font-family:monospace;font-size:18px;font-weight:bold;
+  width:62px;text-align:center;cursor:ns-resize;touch-action:none;
+  box-shadow:inset 0 2px 4px rgba(0,0,0,0.6);
+}
+.pat-b3{
+  padding:5px 9px;background:#333;border:1px solid #222;border-radius:3px;
+  color:#777;font-size:8px;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;transition:all 0.1s;
+}
+.pat-b3:hover{background:#484848;color:#bbb}

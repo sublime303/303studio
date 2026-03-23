@@ -211,6 +211,35 @@ body{background:#111;display:flex;justify-content:center;align-items:flex-start;
 }
 .pat-btn:hover{background:#505050;color:#ccc}
 .pat-btn:active{transform:translateY(1px)}
+
+/* ── SONGS PANEL ── */
+.song-input{
+  background:#0a0a0a;border:1px solid #3a3a3a;border-radius:3px;
+  padding:5px 9px;color:#ddd;font-size:11px;width:155px;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,0.5);outline:none;
+  font-family:inherit;
+}
+.song-input:focus{border-color:#666}
+.song-input::placeholder{color:#3a3a3a}
+.song-select{
+  background:#111;border:1px solid #3a3a3a;border-radius:3px;
+  padding:5px 6px;color:#bbb;font-size:10px;cursor:pointer;
+  box-shadow:inset 0 1px 3px rgba(0,0,0,0.5);min-width:160px;
+  font-family:inherit;
+}
+.song-select option{background:#1a1a1a;color:#ccc}
+.sng-btn{
+  padding:6px 10px;background:#3a3a3a;border:1px solid #2a2a2a;border-radius:3px;
+  color:#888;font-size:9px;cursor:pointer;letter-spacing:0.5px;text-transform:uppercase;
+  transition:all 0.1s;white-space:nowrap;
+  box-shadow:0 2px 4px rgba(0,0,0,0.4);
+}
+.sng-btn:hover{background:#505050;color:#ccc}
+.sng-btn:active{transform:translateY(1px)}
+.sng-btn.export-btn{color:#88cc88}
+.sng-btn.import-btn{color:#8899dd}
+.sng-btn.del-btn{color:#cc7777}
+.songs-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
 </style>
 </head>
 <body>
@@ -289,6 +318,21 @@ body{background:#111;display:flex;justify-content:center;align-items:flex-start;
     </div>
   </div>
 
+  <!-- Songs -->
+  <div class="dark-panel">
+    <div class="panel-label">Songs</div>
+    <div class="songs-row">
+      <input class="song-input" id="songName" placeholder="Song name…" />
+      <button class="sng-btn" onclick="doSaveSong()">Save</button>
+      <select class="song-select" id="songSelect"><option value="">— load saved song —</option></select>
+      <button class="sng-btn del-btn" onclick="doDeleteSong()">Delete</button>
+      <span style="flex:1"></span>
+      <button class="sng-btn export-btn" onclick="doExport()">↓ Export .json</button>
+      <button class="sng-btn import-btn" onclick="document.getElementById('importFile').click()">↑ Import .json</button>
+      <input type="file" id="importFile" accept=".json,.303" style="display:none" onchange="doImport(event)">
+    </div>
+  </div>
+
   <!-- Transport -->
   <div class="dark-panel" style="margin-bottom:0">
     <div class="transport-row">
@@ -309,6 +353,7 @@ body{background:#111;display:flex;justify-content:center;align-items:flex-start;
         <span class="pattern-label">Pattern</span>
         <button class="pat-btn" onclick="loadPreset(0)">Acid 1</button>
         <button class="pat-btn" onclick="loadPreset(1)">Acid 2</button>
+        <button class="pat-btn" onclick="loadPreset(2)">Puzzle ♦</button>
         <button class="pat-btn" onclick="doRandom()">Rnd</button>
         <button class="pat-btn" onclick="doClear()">Clear</button>
       </div>
@@ -543,6 +588,7 @@ class Knob {
     this._dy = null; this._v0 = null;
 
     this.el.addEventListener('pointerdown', e => {
+      this.ind.style.transition = ''; // cancel any playback animation immediately
       this._dy = e.clientY;
       this._v0 = this._norm();
       this.el.setPointerCapture(e.pointerId);
@@ -553,10 +599,11 @@ class Knob {
       const n = Math.max(0, Math.min(1, this._v0 + (this._dy - e.clientY) / 220));
       this._setNorm(n);
     });
-    this.el.addEventListener('pointerup', () => { this._dy = null; });
+    this.el.addEventListener('pointerup', () => { this._dy = null; saveCurrentStepKnobs(); });
     this.el.addEventListener('wheel', e => {
       e.preventDefault();
       this._setNorm(Math.max(0, Math.min(1, this._norm() - e.deltaY / 800)));
+      saveCurrentStepKnobs();
     }, {passive:false});
 
     this._setNorm(this.log ? this._toNorm(val) : (val - min) / (max - min));
@@ -564,6 +611,14 @@ class Knob {
 
   _toNorm(v) { return this.log ? Math.log(v/this.min)/Math.log(this.max/this.min) : (v-this.min)/(this.max-this.min); }
   _norm()    { return this._toNorm(this.value); }
+  setValue(v) { this._setNorm(this._toNorm(Math.max(this.min, Math.min(this.max, v)))); }
+  setValueAnimated(v, ms=100) {
+    this.ind.style.transition = '';
+    void this.ind.offsetWidth; // force reflow so browser commits current position
+    this.ind.style.transition = `transform ${ms}ms ease`;
+    this.setValue(v);
+    setTimeout(() => { this.ind.style.transition = ''; }, ms + 20);
+  }
   _setNorm(n) {
     this.value = this.log
       ? this.min * Math.pow(this.max / this.min, n)
@@ -583,10 +638,40 @@ const seq = new Sequencer(eng);
 let selStep    = 0;
 let recMode    = false;
 
+// Save current knob state to the selected step (called on every manual knob interaction)
+function saveCurrentStepKnobs() {
+  const step = seq.steps[selStep];
+  if (!step.rest) {
+    step.knobs = {
+      tune:   _knobs.tune.value,
+      cutoff: _knobs.cutoff.value,
+      reso:   _knobs.reso.value,
+      envMod: _knobs.envMod.value,
+      decay:  _knobs.decay.value,
+      accent: _knobs.accent.value,
+    };
+  }
+}
+
+// Apply a knob snapshot with smooth animation
+function applyStepKnobs(knobs, ms) {
+  const dur = ms ?? seq.stepDur() * 1000 * 0.8;
+  if (knobs.tune   != null) _knobs.tune.setValueAnimated(knobs.tune,   dur);
+  if (knobs.cutoff != null) _knobs.cutoff.setValueAnimated(knobs.cutoff, dur);
+  if (knobs.reso   != null) _knobs.reso.setValueAnimated(knobs.reso,   dur);
+  if (knobs.envMod != null) _knobs.envMod.setValueAnimated(knobs.envMod, dur);
+  if (knobs.decay  != null) _knobs.decay.setValueAnimated(knobs.decay,  dur);
+  if (knobs.accent != null) _knobs.accent.setValueAnimated(knobs.accent, dur);
+}
+
 // Step change callback
 seq.onStep = idx => {
   document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('playing'));
-  if (idx >= 0) document.getElementById(`s${idx}`)?.classList.add('playing');
+  if (idx >= 0) {
+    document.getElementById(`s${idx}`)?.classList.add('playing');
+    const step = seq.steps[idx];
+    if (step.knobs) applyStepKnobs(step.knobs);
+  }
 };
 
 // ── Build step buttons ──
@@ -661,11 +746,26 @@ function refreshAll() { for (let i=0;i<16;i++) refreshStep(i); }
 
 // ── Select step ──
 function selStep_(i) {
+  // Save current knob state to the step we're leaving (if it has a note)
+  if (i !== selStep) {
+    const leaving = seq.steps[selStep];
+    if (!leaving.rest) {
+      leaving.knobs = {
+        tune:   _knobs.tune.value,
+        cutoff: _knobs.cutoff.value,
+        reso:   _knobs.reso.value,
+        envMod: _knobs.envMod.value,
+        decay:  _knobs.decay.value,
+        accent: _knobs.accent.value,
+      };
+    }
+  }
   selStep = i;
   document.querySelectorAll('.step-btn').forEach((b,j) => {
     b.classList.toggle('selected', j === i);
   });
   const s = seq.steps[i];
+  if (s.knobs) applyStepKnobs(s.knobs, 120);
   document.getElementById('bOctLow') .classList.toggle('active', s.octave === 0);
   document.getElementById('bOctHigh').classList.toggle('active', s.octave === 1);
   document.getElementById('bAccent') .classList.toggle('active', s.accent);
@@ -683,8 +783,17 @@ function hlKey(note) {
 
 // ── Assign note to current step ──
 function assignNote(note) {
-  seq.steps[selStep].note = note;
-  seq.steps[selStep].rest = false;
+  const s = seq.steps[selStep];
+  s.note = note;
+  s.rest = false;
+  s.knobs = {
+    tune:   _knobs.tune.value,
+    cutoff: _knobs.cutoff.value,
+    reso:   _knobs.reso.value,
+    envMod: _knobs.envMod.value,
+    decay:  _knobs.decay.value,
+    accent: _knobs.accent.value,
+  };
   refreshStep(selStep);
   hlKey(note);
   document.getElementById('bRest').classList.remove('active');
@@ -777,6 +886,133 @@ function doRandom() {
   refreshAll(); selStep_(selStep); seq.save();
 }
 
+// ─────────────────────────────────────────────────
+// SONG DATA  helpers
+// ─────────────────────────────────────────────────
+function getSongData(name) {
+  saveCurrentStepKnobs(); // capture current step before reading
+  return {
+    version:  1,
+    name:     name || 'untitled',
+    bpm:      seq.bpm,
+    waveform: eng.waveform,
+    knobs: {
+      tune:   _knobs.tune.value,
+      cutoff: _knobs.cutoff.value,
+      reso:   _knobs.reso.value,
+      envMod: _knobs.envMod.value,
+      decay:  _knobs.decay.value,
+      accent: _knobs.accent.value,
+    },
+    steps: seq.steps.map(s => ({...s})),
+  };
+}
+
+function applySongData(data) {
+  if (!data?.steps || data.steps.length !== 16) { alert('Invalid song file.'); return; }
+  seq.steps = data.steps.map(s => ({...s}));
+  setBPM(data.bpm || 128);
+  if (data.waveform) setWaveform(data.waveform);
+  if (data.knobs) {
+    if (data.knobs.tune   != null) _knobs.tune.setValue(data.knobs.tune);
+    if (data.knobs.cutoff != null) _knobs.cutoff.setValue(data.knobs.cutoff);
+    if (data.knobs.reso   != null) _knobs.reso.setValue(data.knobs.reso);
+    if (data.knobs.envMod != null) _knobs.envMod.setValue(data.knobs.envMod);
+    if (data.knobs.decay  != null) _knobs.decay.setValue(data.knobs.decay);
+    if (data.knobs.accent != null) _knobs.accent.setValue(data.knobs.accent);
+  }
+  refreshAll();
+  selStep_(selStep);
+  seq.save();
+  if (data.name) document.getElementById('songName').value = data.name;
+}
+
+// ── Export ──
+function doExport() {
+  const name = document.getElementById('songName').value.trim() || 'tb303-pattern';
+  const data = getSongData(name);
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = name.replace(/[^a-z0-9_\-]/gi, '_') + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ── Import ──
+function doImport(evt) {
+  const file = evt.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      applySongData(data);
+    } catch(err) {
+      alert('Could not parse file: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  evt.target.value = ''; // reset so same file can be re-imported
+}
+
+// ── Songs localStorage bank ──
+function loadSongBank() {
+  try { return JSON.parse(localStorage.getItem('tb303_songs') || '[]'); } catch(e) { return []; }
+}
+function saveSongBank(bank) {
+  try { localStorage.setItem('tb303_songs', JSON.stringify(bank)); } catch(e) {}
+}
+
+function buildSongsList() {
+  const sel = document.getElementById('songSelect');
+  const cur = sel.value;
+  const bank = loadSongBank();
+  sel.innerHTML = '<option value="">— load saved song —</option>';
+  bank.forEach((s, i) => {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.textContent = s.name + '  (' + s.bpm + ' BPM)';
+    sel.appendChild(opt);
+  });
+  sel.value = cur;
+}
+
+function doSaveSong() {
+  const name = document.getElementById('songName').value.trim();
+  if (!name) { alert('Enter a song name first.'); return; }
+  const bank = loadSongBank();
+  const existing = bank.findIndex(s => s.name === name);
+  const data = getSongData(name);
+  if (existing >= 0) bank[existing] = data;
+  else bank.push(data);
+  saveSongBank(bank);
+  buildSongsList();
+  // Select the just-saved song
+  const idx = loadSongBank().findIndex(s => s.name === name);
+  if (idx >= 0) document.getElementById('songSelect').value = idx;
+}
+
+function doLoadSong() {
+  const idx = parseInt(document.getElementById('songSelect').value);
+  if (isNaN(idx)) return;
+  const bank = loadSongBank();
+  if (bank[idx]) applySongData(bank[idx]);
+}
+
+function doDeleteSong() {
+  const idx = parseInt(document.getElementById('songSelect').value);
+  if (isNaN(idx)) return;
+  const bank = loadSongBank();
+  if (!bank[idx]) return;
+  if (!confirm(`Delete "${bank[idx].name}"?`)) return;
+  bank.splice(idx, 1);
+  saveSongBank(bank);
+  buildSongsList();
+  document.getElementById('songSelect').value = '';
+}
+
+// ─────────────────────────────────────────────────
 const PRESETS = [
   [ // Acid 1 — classic ascending acid
     {note:'A',  octave:0, accent:false, slide:true,  rest:false},
@@ -814,20 +1050,61 @@ const PRESETS = [
     {note:'A',  octave:0, accent:false, slide:false, rest:false},
     {note:'D',  octave:0, accent:false, slide:false, rest:false},
   ]
+  ,
+  [ // Puzzle — Little Jinder (placeholder — import corrected version when available)
+    // Key: F minor ish, ~128 BPM, melancholic minimal electronic feel
+    {note:'F',  octave:0, accent:false, slide:false, rest:false},
+    {note:'F',  octave:0, accent:false, slide:true,  rest:false},
+    {note:'G#', octave:0, accent:true,  slide:false, rest:false},
+    {note:'G#', octave:0, accent:false, slide:false, rest:true },
+    {note:'G',  octave:0, accent:false, slide:true,  rest:false},
+    {note:'F',  octave:0, accent:false, slide:false, rest:false},
+    {note:'D#', octave:0, accent:true,  slide:false, rest:false},
+    {note:'D#', octave:0, accent:false, slide:false, rest:true },
+    {note:'F',  octave:0, accent:false, slide:true,  rest:false},
+    {note:'F',  octave:1, accent:false, slide:false, rest:false},
+    {note:'G#', octave:0, accent:true,  slide:false, rest:false},
+    {note:'G',  octave:0, accent:false, slide:true,  rest:false},
+    {note:'F',  octave:0, accent:false, slide:false, rest:false},
+    {note:'C',  octave:0, accent:false, slide:false, rest:true },
+    {note:'D#', octave:0, accent:false, slide:true,  rest:false},
+    {note:'F',  octave:0, accent:true,  slide:false, rest:false},
+  ]
+];
+
+const PRESET_KNOBS = [
+  // Acid 1
+  {bpm:128, waveform:'sawtooth', cutoff:0.38, reso:0.55, envMod:0.62, decay:0.35, accent:0.70, tune:0},
+  // Acid 2
+  {bpm:130, waveform:'sawtooth', cutoff:0.32, reso:0.60, envMod:0.70, decay:0.40, accent:0.72, tune:0},
+  // Puzzle (placeholder)
+  {bpm:128, waveform:'sawtooth', cutoff:0.30, reso:0.45, envMod:0.55, decay:0.45, accent:0.55, tune:0},
 ];
 
 function loadPreset(i) {
   seq.steps = PRESETS[i].map(s => ({...s}));
+  const k = PRESET_KNOBS[i];
+  if (k) {
+    setBPM(k.bpm);
+    setWaveform(k.waveform);
+    _knobs.cutoff.setValue(k.cutoff);
+    _knobs.reso.setValue(k.reso);
+    _knobs.envMod.setValue(k.envMod);
+    _knobs.decay.setValue(k.decay);
+    _knobs.accent.setValue(k.accent);
+    _knobs.tune.setValue(k.tune);
+  }
   refreshAll(); selStep_(selStep); seq.save();
 }
 
 // ── Knobs ──
-new Knob('kTune',   'iTune',   {min:-7,   max:7,   val:0,    log:false, onChange:v => eng.setTune(Math.round(v))});
-new Knob('kCutoff', 'iCutoff', {min:0,    max:1,   val:0.38, log:false, onChange:v => eng.setCutoff(v)});
-new Knob('kReso',   'iReso',   {min:0,    max:1,   val:0.32, log:false, onChange:v => eng.setReso(v)});
-new Knob('kEnvMod', 'iEnvMod', {min:0,    max:1,   val:0.50, log:false, onChange:v => eng.setEnvMod(v)});
-new Knob('kDecay',  'iDecay',  {min:0,    max:1,   val:0.28, log:false, onChange:v => eng.setDecay(v)});
-new Knob('kAccent', 'iAccent', {min:0,    max:1,   val:0.60, log:false, onChange:v => eng.setAccent(v)});
+const _knobs = {};
+_knobs.tune    = new Knob('kTune',   'iTune',   {min:-7, max:7, val:0,    log:false, onChange:v => eng.setTune(Math.round(v))});
+_knobs.cutoff  = new Knob('kCutoff', 'iCutoff', {min:0,  max:1, val:0.38, log:false, onChange:v => eng.setCutoff(v)});
+_knobs.reso    = new Knob('kReso',   'iReso',   {min:0,  max:1, val:0.32, log:false, onChange:v => eng.setReso(v)});
+_knobs.envMod  = new Knob('kEnvMod', 'iEnvMod', {min:0,  max:1, val:0.50, log:false, onChange:v => eng.setEnvMod(v)});
+_knobs.decay   = new Knob('kDecay',  'iDecay',  {min:0,  max:1, val:0.28, log:false, onChange:v => eng.setDecay(v)});
+_knobs.accent  = new Knob('kAccent', 'iAccent', {min:0,  max:1, val:0.60, log:false, onChange:v => eng.setAccent(v)});
 
 // ── Init ──
 (function init() {
@@ -838,6 +1115,7 @@ new Knob('kAccent', 'iAccent', {min:0,    max:1,   val:0.60, log:false, onChange
   if (!localStorage.getItem('tb303_p')) loadPreset(0);
   else refreshAll();
   selStep_(0);
+  buildSongsList();
 })();
 </script>
 </body>

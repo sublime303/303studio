@@ -1,0 +1,64 @@
+/* ═══════════════════════════════════════════════════
+   TR-808 INSTRUMENT STYLES
+   Owner: TR-808 agent — do not edit from other agents
+   ═══════════════════════════════════════════════════ */
+
+.tr808-card{background:linear-gradient(170deg,#e8dfd0,#d8cfc0);padding:14px 16px 16px;position:relative}
+.tr808-card::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(0deg,rgba(0,0,0,0.015) 0,rgba(0,0,0,0) 1px,rgba(0,0,0,0) 2px,rgba(0,0,0,0.015) 3px);
+}
+.tr808-header-bar{background:#8a1500}
+.tr808-header-bar .inst-title{color:#ffcc99}
+.tr808-header-bar .inst-type-tag{background:rgba(0,0,0,0.3);color:#ffaa77}
+
+/* Dark panel inside 808 */
+.t8-panel{
+  background:linear-gradient(180deg,#2e2216,#201810);border-radius:7px;padding:12px 14px;margin-bottom:8px;
+  box-shadow:inset 0 2px 5px rgba(0,0,0,0.5);
+}
+.t8-panel:last-child{margin-bottom:0}
+.t8-lbl{font-size:8px;color:#6a5030;text-transform:uppercase;letter-spacing:2px;margin-bottom:9px;text-align:center}
+
+/* Voice grid */
+.voice-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.voice-row:last-child{margin-bottom:0}
+.voice-name{
+  font-size:9px;font-weight:bold;color:#cc8844;letter-spacing:1px;text-transform:uppercase;
+  width:30px;flex-shrink:0;text-align:right;
+}
+.steps-808{display:flex;gap:3px}
+.drum-step{
+  width:24px;height:28px;background:#3a2e22;border:1px solid #1a1208;border-radius:3px;
+  cursor:pointer;flex-shrink:0;transition:all 0.08s;position:relative;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.05);
+}
+.drum-step:active{transform:translateY(1px)}
+.drum-step.on{
+  background:radial-gradient(circle,#ff6600,#cc3300);
+  box-shadow:0 0 6px rgba(255,102,0,0.6),inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.drum-step.playing{background:radial-gradient(circle,#ffcc00,#ff8800);box-shadow:0 0 10px rgba(255,200,0,0.8)}
+.step-gap{width:5px;flex-shrink:0}
+.voice-knobs{display:flex;align-items:flex-end;gap:8px;margin-left:6px}
+.v-knob-g{display:flex;flex-direction:column;align-items:center;gap:3px}
+
+/* 808 transport */
+.t8-transport{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.t8-btns{display:flex;gap:6px}
+.btn-play8{background:linear-gradient(180deg,#2a4a1a,#1a3010);color:#aaddaa;padding:7px 14px}
+.btn-play8:hover{background:linear-gradient(180deg,#3a5a2a,#2a4020)}
+.btn-play8.on{background:linear-gradient(180deg,#44cc44,#339933);color:#fff;box-shadow:0 0 10px rgba(68,204,68,0.4)}
+.btn-stop8{background:linear-gradient(180deg,#6a1010,#4a0808);color:#ffaaaa;padding:7px 14px}
+.bpm-wrap8{display:flex;align-items:center;gap:7px}
+.bpm-lbl8{font-size:8px;color:#6a5030;letter-spacing:2px;text-transform:uppercase}
+.bpm-d8{
+  background:#0a0805;border:1px solid #4a3020;border-radius:3px;padding:4px 7px;
+  color:#ff9944;font-family:monospace;font-size:18px;font-weight:bold;
+  width:62px;text-align:center;cursor:ns-resize;touch-action:none;
+}
+.pat-b8{
+  padding:5px 9px;background:#3a2a1a;border:1px solid #2a1a08;border-radius:3px;
+  color:#8a6a44;font-size:8px;cursor:pointer;text-transform:uppercase;transition:all 0.1s;
+}
+.pat-b8:hover{background:#4a3a2a;color:#cc9966}

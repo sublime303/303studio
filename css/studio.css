@@ -1,0 +1,160 @@
+/* ═══════════════════════════════════════════════════
+   STUDIO SHELL — rack, header, card wrapper, shared knob
+   ═══════════════════════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#080808;min-height:100vh;font-family:'Arial',sans-serif;padding-bottom:60px}
+
+/* ── Studio header ── */
+.studio-header{
+  background:linear-gradient(180deg,#1c1c1c,#141414);
+  border-bottom:2px solid #2a2a2a;
+  padding:12px 20px;display:flex;align-items:center;gap:14px;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 4px 20px rgba(0,0,0,0.8);
+}
+.studio-logo{display:flex;flex-direction:column;line-height:1;margin-right:8px}
+.studio-logo-main{font-size:18px;font-weight:900;color:#e8620a;letter-spacing:2px}
+.studio-logo-sub{font-size:8px;color:#555;letter-spacing:4px;text-transform:uppercase}
+.studio-sep{width:1px;height:34px;background:#333;margin:0 4px}
+.studio-btn{
+  padding:7px 14px;border-radius:4px;font-size:10px;font-weight:bold;
+  letter-spacing:1.5px;cursor:pointer;border:none;text-transform:uppercase;
+  transition:all 0.12s;box-shadow:0 2px 6px rgba(0,0,0,0.5);
+}
+.btn-play-all{background:#1e5e1e;color:#88dd88}
+.btn-play-all:hover{background:#236823}
+.btn-play-all.on{background:#33cc33;color:#fff;box-shadow:0 0 12px rgba(51,204,51,0.4)}
+.btn-stop-all{background:#5a1515;color:#ffaaaa}
+.btn-stop-all:hover{background:#7a1a1a}
+.studio-spacer{flex:1}
+
+/* ── Add instrument menu ── */
+.add-wrap{position:relative}
+.add-btn{
+  background:linear-gradient(180deg,#3a3a3a,#2a2a2a);color:#ccc;
+  border:1px solid #444;font-size:11px;padding:8px 16px;
+  border-radius:4px;cursor:pointer;font-weight:bold;
+}
+.add-btn:hover{background:linear-gradient(180deg,#4a4a4a,#3a3a3a);color:#fff}
+.add-menu{
+  position:absolute;right:0;top:calc(100% + 6px);
+  background:#1e1e1e;border:1px solid #3a3a3a;border-radius:6px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.8);z-index:200;
+  min-width:210px;overflow:hidden;display:none;
+}
+.add-menu.open{display:block}
+.add-menu-item{
+  padding:10px 16px;cursor:pointer;font-size:11px;color:#bbb;
+  display:flex;align-items:center;gap:10px;
+  border-bottom:1px solid #2a2a2a;transition:background 0.1s;
+}
+.add-menu-item:last-child{border-bottom:none}
+.add-menu-item:hover{background:#2a2a2a;color:#fff}
+.inst-badge{font-size:9px;font-weight:bold;padding:2px 6px;border-radius:2px}
+.badge-303{background:#c0450a;color:#fff}
+.badge-808{background:#8a1500;color:#ffcc99}
+.badge-syn{background:#1a4a8a;color:#99ccff}
+
+/* ── Master volume knob ── */
+.master-wrap{display:flex;align-items:center;gap:6px}
+
+/* ── Master BPM ── */
+.master-bpm-wrap{display:flex;align-items:center;gap:6px}
+.master-bpm-d{
+  background:#0a0805;border:1px solid #3a3020;border-radius:3px;
+  padding:3px 8px;color:#ff9944;font-family:monospace;font-size:20px;font-weight:bold;
+  width:58px;text-align:center;cursor:ns-resize;touch-action:none;user-select:none;
+}
+.master-label{font-size:8px;color:#555;text-transform:uppercase;letter-spacing:1px}
+.knob-sm{
+  width:30px;height:30px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#444,#1a1a1a);
+  box-shadow:0 3px 8px rgba(0,0,0,0.7),inset 0 1px 2px rgba(255,255,255,0.12);
+  position:relative;cursor:grab;touch-action:none;flex-shrink:0;
+}
+.knob-sm:active{cursor:grabbing}
+.knob-sm .knob-indicator{
+  position:absolute;width:2px;height:10px;background:#fff;
+  left:calc(50% - 1px);top:3px;border-radius:1px;
+  transform-origin:50% 145%;pointer-events:none;
+}
+
+/* ── Instrument rack ── */
+.rack{max-width:980px;margin:20px auto;padding:0 16px;display:flex;flex-direction:column;gap:14px}
+.empty-rack{
+  text-align:center;padding:60px 20px;color:#2a2a2a;
+  font-size:13px;letter-spacing:2px;text-transform:uppercase;
+}
+
+/* ── Instrument card wrapper ── */
+.inst-card{border-radius:12px;overflow:hidden;box-shadow:0 0 0 2px #444,0 12px 40px rgba(0,0,0,0.8)}
+.inst-card-header{display:flex;align-items:center;gap:10px;padding:8px 14px}
+.inst-led{width:8px;height:8px;border-radius:50%;background:#222;flex-shrink:0;transition:all 0.2s}
+.inst-led.on{background:#44ee44;box-shadow:0 0 6px rgba(68,238,68,0.7)}
+.inst-title{font-size:11px;font-weight:bold;color:#ccc;letter-spacing:1px;text-transform:uppercase}
+.inst-type-tag{font-size:8px;padding:2px 6px;border-radius:2px;font-weight:bold;margin-left:2px}
+.inst-header-btns{display:flex;gap:5px;margin-left:auto}
+.inst-hbtn{
+  width:22px;height:22px;border-radius:3px;border:none;cursor:pointer;
+  font-size:11px;display:flex;align-items:center;justify-content:center;
+  transition:all 0.1s;font-weight:bold;
+}
+.collapse-btn{background:#333;color:#888}
+.collapse-btn:hover{background:#444;color:#fff}
+.remove-btn{background:#3a1515;color:#cc6666}
+.remove-btn:hover{background:#5a2020;color:#ff8888}
+.inst-body{transition:all 0.15s}
+.inst-body.collapsed{display:none}
+
+/* ── Shared dark knob (used by 303 and any dark-panel instrument) ── */
+.knob{
+  width:50px;height:50px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#585858 0%,#282828 55%,#1a1a1a 100%);
+  box-shadow:0 4px 12px rgba(0,0,0,0.8),inset 0 1px 3px rgba(255,255,255,0.18),inset 0 -2px 4px rgba(0,0,0,0.6);
+  position:relative;cursor:grab;touch-action:none;
+}
+.knob:active{cursor:grabbing}
+.knob-indicator{
+  position:absolute;width:3px;height:14px;
+  background:linear-gradient(180deg,#fff,#ddd);
+  left:calc(50% - 1.5px);top:5px;border-radius:2px 2px 0 0;
+  transform-origin:50% 145%;pointer-events:none;
+}
+.knob-label{font-size:8px;color:#888;text-transform:uppercase;letter-spacing:0.5px;text-align:center;max-width:56px;line-height:1.3}
+.knob-group{display:flex;flex-direction:column;align-items:center;gap:5px;flex:1}
+.knob-clr-btn{
+  width:7px;height:7px;border-radius:50%;cursor:pointer;border:none;padding:0;
+  background:#1a1a1a;box-shadow:inset 0 1px 2px rgba(0,0,0,0.6);transition:all 0.15s;
+}
+.knob-clr-btn.active{
+  background:#ff6600;
+  box-shadow:0 0 5px rgba(255,102,0,0.9),0 0 10px rgba(255,102,0,0.4),inset 0 1px 1px rgba(255,200,100,0.4);
+}
+.knob-clr-btn:hover{ filter:brightness(1.4); }
+
+/* ── Light knob variant (TR-808) ── */
+.knob-light{
+  width:44px;height:44px;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%,#ddd 0%,#aaa 55%,#888 100%);
+  box-shadow:0 3px 8px rgba(0,0,0,0.5),inset 0 1px 2px rgba(255,255,255,0.5),inset 0 -1px 3px rgba(0,0,0,0.3);
+  position:relative;cursor:grab;touch-action:none;
+}
+.knob-light:active{cursor:grabbing}
+.knob-light .knob-indicator{background:linear-gradient(180deg,#cc2200,#aa1100);top:4px;height:12px;left:calc(50% - 1.5px)}
+.knob-light-label{font-size:7px;color:#4a3020;text-transform:uppercase;letter-spacing:0.5px;text-align:center;max-width:50px;line-height:1.2}
+
+/* ── Shared transport primitives ── */
+.t-btn{
+  padding:8px 15px;border-radius:4px;font-size:10px;font-weight:bold;letter-spacing:2px;
+  cursor:pointer;border:none;text-transform:uppercase;transition:all 0.1s;
+  box-shadow:0 2px 6px rgba(0,0,0,0.5);
+}
+.t-btn:active{transform:translateY(1px)}
+.bpm-arrows3{display:flex;flex-direction:column;gap:2px}
+.bpm-arr{
+  width:18px;height:15px;background:#333;border:1px solid #222;border-radius:2px;
+  color:#888;font-size:9px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.bpm-arr:hover{background:#555;color:#ddd}
+.pat-btns3{display:flex;gap:5px;flex-wrap:wrap}
