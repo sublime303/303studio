@@ -164,6 +164,24 @@
         const b = mk('button', 'pat-b3'); b.textContent = p.name; b.onclick = () => this._loadPreset(i);
         patBtns.appendChild(b);
       });
+
+      // Famous songs dropdown
+      const famWrap = mk('div', 'pat-fam-wrap');
+      const famBtn  = mk('button', 'pat-b3 pat-fam-btn'); famBtn.textContent = 'Famous ▾';
+      const famMenu = mk('div', 'pat-fam-menu');
+      global.TB303_FAMOUS.forEach((p, i) => {
+        const item = mk('div', 'pat-fam-item');
+        const title  = mk('span', 'fam-title');  title.textContent  = p.name;
+        const artist = mk('span', 'fam-artist'); artist.textContent = p.artist;
+        item.append(title, artist);
+        item.onclick = () => { this._loadFamous(i); famMenu.classList.remove('open'); };
+        famMenu.appendChild(item);
+      });
+      famBtn.onclick = e => { e.stopPropagation(); famMenu.classList.toggle('open'); };
+      root.addEventListener('click', () => famMenu.classList.remove('open'));
+      famWrap.append(famBtn, famMenu);
+      patBtns.appendChild(famWrap);
+
       const rndB = mk('button', 'pat-b3'); rndB.textContent = 'Rnd';   rndB.onclick = () => this._random();
       const clrB = mk('button', 'pat-b3'); clrB.textContent = 'Clear'; clrB.onclick = () => this._clear();
       const expB = mk('button', 'pat-b3'); expB.textContent = '↓ Export'; expB.onclick = () => this._export();
@@ -386,6 +404,21 @@
     }
 
     // ── Pattern helpers ─────────────────────────────────────────────
+    _loadFamous(i) {
+      const p = global.TB303_FAMOUS[i]; if (!p) return;
+      this.seq.steps = p.steps.map(s => ({ ...s }));
+      if (p.bpm) this._adjBPM(0, p.bpm);
+      const k = p.knobs || {};
+      if (k.cutoff != null) this._knobs['k-cutoff'].setValue(k.cutoff);
+      if (k.reso   != null) this._knobs['k-reso'].setValue(k.reso);
+      if (k.envMod != null) this._knobs['k-envmod'].setValue(k.envMod);
+      if (k.decay  != null) this._knobs['k-decay'].setValue(k.decay);
+      if (k.accent != null) this._knobs['k-accent'].setValue(k.accent);
+      if (k.tune   != null) this._knobs['k-tune'].setValue(k.tune);
+      this._refreshAll();
+      this._selectStep(0);
+    }
+
     _loadPreset(i) {
       const p = global.TB303_PRESETS[i]; if (!p) return;
       this.seq.steps = p.steps.map(s => ({ ...s }));
