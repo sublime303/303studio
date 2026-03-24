@@ -180,8 +180,8 @@
     _initMasterKnob();
     _initMasterBpm();
     global.studio.init();
-    // Pre-load one of each registered instrument
-    Object.keys(global.StudioInstruments || {}).forEach(type => global.studio.add(type));
+    // Default instruments on startup — users add more via ＋ Add Instrument
+    ['TB303', 'TR808'].forEach(type => global.studio.add(type));
   });
 
 })(window);
