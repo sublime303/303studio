@@ -1,0 +1,315 @@
+/* ═══════════════════════════════════════════════════
+   DX7 FM SYNTH INSTRUMENT STYLES
+   Owner: DX7 agent — do not edit from other agents
+   ═══════════════════════════════════════════════════ */
+
+/* Header bar — Yamaha black/gold */
+.dx7-header-bar { background: #1a1a2e; }
+.dx7-header-bar .inst-title { color: #e8c840; }
+.dx7-header-bar .inst-type-tag { background: rgba(0,0,0,0.4); color: #e8c840; }
+
+/* Card body — dark metallic navy */
+.dx7-card {
+  background: linear-gradient(170deg, #2a2a3e, #1e1e30);
+  padding: 14px 16px 16px;
+  position: relative;
+}
+.dx7-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(232,200,64,0.03) 0,
+    rgba(232,200,64,0) 1px,
+    rgba(232,200,64,0) 3px,
+    rgba(232,200,64,0.03) 4px
+  );
+}
+
+/* Panel sections */
+.dx7-panel {
+  background: linear-gradient(180deg, #0e0e1a, #080810);
+  border-radius: 7px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.8),
+    inset 0 -1px 0 rgba(232,200,64,0.05),
+    0 1px 3px rgba(0,0,0,0.5);
+}
+.dx7-panel:last-child { margin-bottom: 0; }
+
+/* Labels */
+.dx7-lbl {
+  font-size: 8px;
+  color: #8888aa;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 9px;
+  text-align: center;
+}
+
+/* Algorithm selector */
+.dx7-algo-row {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.dx7-algo-sect {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-right: 8px;
+}
+
+.dx7-algo-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.dx7-algo-btn {
+  padding: 5px 10px;
+  background: #1a1a2a;
+  border: 1px solid #2a2a44;
+  border-radius: 3px;
+  color: #6666aa;
+  font-size: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.dx7-algo-btn:hover { background: #22223a; color: #aaaacc; }
+.dx7-algo-btn.active {
+  background: #e8c840;
+  color: #1a1a2e;
+  border-color: #c8a820;
+  box-shadow: 0 0 8px rgba(232,200,64,0.5);
+}
+
+/* Controls row */
+.dx7-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* Step sequencer */
+.dx7-steps-row {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+}
+
+.dx7-step {
+  width: 46px;
+  height: 50px;
+  background: linear-gradient(180deg, #14141e, #0c0c16);
+  border: 2px solid #0a0a14;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.7), inset 0 1px 0 rgba(232,200,64,0.04);
+  transition: border-color 0.08s;
+  flex-shrink: 0;
+}
+.dx7-step:active { transform: translateY(1px); }
+
+.dx7-step.selected {
+  border-color: #ffffff;
+  background: linear-gradient(180deg, #1e1e30, #14142a);
+}
+
+.dx7-step.playing {
+  background: linear-gradient(180deg, #1a1a00, #101000);
+  border-color: #e8c840;
+  box-shadow: 0 0 10px rgba(232,200,64,0.7), 0 0 20px rgba(232,200,64,0.3);
+}
+
+.dx7-step.has-note {
+  border-top: 2px solid #e8c840;
+}
+
+.dx7-step.is-rest {
+  background: linear-gradient(180deg, #0c0c14, #08080e);
+}
+
+/* Step content */
+.dx7-step-note {
+  font-size: 11px;
+  font-weight: bold;
+  color: #e8c840;
+}
+
+.dx7-step-oct {
+  font-size: 7px;
+  color: #666688;
+  min-height: 9px;
+}
+
+.dx7-step-rest {
+  font-size: 12px;
+  color: #2a2a3a;
+  font-style: italic;
+}
+
+/* Note entry */
+.dx7-note-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  justify-content: center;
+}
+
+.dx7-piano-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.dx7-piano {
+  position: relative;
+  height: 58px;
+  width: 252px;
+  flex-shrink: 0;
+}
+
+/* White keys — metallic tint */
+.dx7-wkey {
+  position: absolute;
+  height: 58px;
+  background: linear-gradient(180deg, #d8d8e8, #c4c4d4);
+  border: 1px solid #8888aa;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3px;
+  transition: background 0.05s;
+}
+.dx7-wkey span { font-size: 7px; color: #5a5a88; font-weight: bold; }
+.dx7-wkey:hover { background: linear-gradient(180deg, #ffe870, #e8c820); }
+.dx7-wkey.active { background: linear-gradient(180deg, #e8c840, #c8a820) !important; }
+.dx7-wkey.active span { color: #1a1a2e; }
+
+/* Black keys */
+.dx7-bkey {
+  position: absolute;
+  height: 36px;
+  width: 22px;
+  background: linear-gradient(180deg, #141422, #0a0a16);
+  border: 1px solid #000;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  z-index: 2;
+  top: 0;
+  transition: background 0.05s;
+}
+.dx7-bkey:hover { background: linear-gradient(180deg, #4a4400, #2a2800); }
+.dx7-bkey.active { background: linear-gradient(180deg, #c8a820, #886e10) !important; }
+
+/* Step properties */
+.dx7-step-props {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+.dx7-prop-row {
+  display: flex;
+  gap: 5px;
+}
+.dx7-prop-btn {
+  padding: 5px 10px;
+  background: #14141e;
+  border: 1px solid #1e1e2e;
+  border-radius: 3px;
+  color: #6666aa;
+  font-size: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.dx7-prop-btn:hover { background: #1e1e2e; color: #aaaacc; }
+.dx7-prop-btn.active {
+  background: #e8c840;
+  color: #1a1a2e;
+  border-color: #c8a820;
+  box-shadow: 0 0 6px rgba(232,200,64,0.4);
+}
+
+/* Transport */
+.dx7-transport {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.dx7-btns {
+  display: flex;
+  gap: 7px;
+}
+
+.btn-play-dx7 {
+  background: linear-gradient(180deg, #1a5a1a, #0e3e0e);
+  color: #88cc88;
+}
+.btn-play-dx7:hover { background: linear-gradient(180deg, #1e6a1e, #124812); }
+.btn-play-dx7.on {
+  background: linear-gradient(180deg, #33cc33, #228822);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(51,204,51,0.55);
+}
+
+.btn-stop-dx7 {
+  background: linear-gradient(180deg, #3a3a1a, #282810);
+  color: #cccc88;
+}
+.btn-stop-dx7:hover { background: linear-gradient(180deg, #4a4a22, #303014); }
+
+/* Preset & pattern buttons */
+.dx7-pat-btns {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.dx7-pat-btn {
+  padding: 5px 9px;
+  background: #14141e;
+  border: 1px solid #1e1e2e;
+  border-radius: 3px;
+  color: #6666aa;
+  font-size: 8px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.1s;
+}
+.dx7-pat-btn:hover { background: #1e1e2e; color: #aaaacc; }
+
+/* Badge */
+.badge-dx7 {
+  background: #1a1a2e;
+  color: #e8c840;
+  border: 1px solid #4a4a22;
+}

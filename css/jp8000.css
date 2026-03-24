@@ -1,0 +1,419 @@
+/* ─────────────────────────────────────────────────────────────
+   Roland JP-8000 Supersaw — deep purple / violet theme
+   Electric blue / cyan accents — late-90s trance synthesizer
+───────────────────────────────────────────────────────────── */
+
+/* ── Header bar ─────────────────────────────────────────── */
+.jp8000-header-bar {
+  background: #3a1a6a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 6px 6px 0 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #5a2a9a;
+}
+
+.jp8000-header-bar .tag {
+  color: #ccaaff;
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* ── Badge ──────────────────────────────────────────────── */
+.badge-jp {
+  background: #3a1a6a;
+  color: #ccaaff;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* ── Card ───────────────────────────────────────────────── */
+.jp8000-card {
+  background: linear-gradient(160deg, #1a0e2e 0%, #120a22 100%);
+  padding: 14px 16px 16px;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #2a1050;
+  border-top: none;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Panel ──────────────────────────────────────────────── */
+.jp-panel {
+  background: linear-gradient(160deg, #0e0818 0%, #0a0614 100%);
+  border-radius: 7px;
+  padding: 12px 14px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.7), inset 0 0 1px rgba(100,60,180,0.15);
+  margin-bottom: 8px;
+}
+
+/* ── Section labels ─────────────────────────────────────── */
+.jp-lbl {
+  color: #4488cc;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 9px;
+}
+
+/* ── Controls row ───────────────────────────────────────── */
+.jp-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* ── Chord section ──────────────────────────────────────── */
+.jp-chord-sect {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.jp-chord-types {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3px;
+  max-width: 140px;
+}
+
+.jp-chord-btn {
+  background: #120828;
+  color: #7755aa;
+  border: 1px solid #2a1050;
+  border-radius: 3px;
+  padding: 3px 7px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.1s ease;
+  min-width: 34px;
+  text-align: center;
+}
+
+.jp-chord-btn:hover {
+  border-color: #4422aa;
+  color: #9977cc;
+  background: #180a30;
+}
+
+.jp-chord-btn.active {
+  background: #0a1040;
+  color: #88ccff;
+  border-color: #2266cc;
+  box-shadow: 0 0 6px rgba(68,136,220,0.55), inset 0 0 4px rgba(68,136,220,0.1);
+}
+
+/* ── Steps row ──────────────────────────────────────────── */
+.jp-steps-row {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Individual step button ─────────────────────────────── */
+.jp-step {
+  width: 42px;
+  height: 48px;
+  background: #0a0618;
+  border: 2px solid #1a0a30;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: border-color 0.1s ease, background 0.1s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.jp-step:hover {
+  border-color: #3a1a60;
+  background: #0e0a20;
+}
+
+.jp-step.selected {
+  border-color: #8844cc;
+  box-shadow: 0 0 5px rgba(136,68,204,0.45);
+}
+
+.jp-step.playing {
+  background: #081830;
+  border-color: #2288cc;
+  box-shadow: 0 0 10px rgba(34,136,204,0.65), inset 0 0 6px rgba(34,136,204,0.15);
+}
+
+.jp-step.has-note {
+  background: #0c0824;
+  border-top: 2px solid #2266aa;
+}
+
+.jp-step.is-rest {
+  background: #060412;
+  border-color: #110820;
+}
+
+.jp-step-root {
+  font-size: 11px;
+  font-weight: 700;
+  color: #88ddff;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.jp-step-oct {
+  font-size: 8px;
+  color: #6633aa;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.jp-step-rest {
+  font-size: 12px;
+  color: #2a1a3a;
+  font-style: italic;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Editor row ─────────────────────────────────────────── */
+.jp-editor-row {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Piano wrap ─────────────────────────────────────────── */
+.jp-piano-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Piano keyboard ─────────────────────────────────────── */
+.jp-piano {
+  position: relative;
+  height: 52px;
+  width: 224px;
+}
+
+.jp-wkey {
+  position: absolute;
+  top: 0;
+  height: 52px;
+  background: linear-gradient(to bottom, #ddd8cc 0%, #f0ece2 60%, #e8e4da 100%);
+  border: 1px solid #3a2a5a;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3px;
+  transition: background 0.1s ease;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.jp-wkey span {
+  font-size: 7px;
+  color: #4a3a6a;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.jp-wkey:hover {
+  background: linear-gradient(to bottom, #ccd0ee 0%, #dde0ff 60%, #ccd0ee 100%);
+}
+
+.jp-wkey.active {
+  background: linear-gradient(to bottom, #3366bb 0%, #4488dd 60%, #3366bb 100%);
+  border-color: #224499;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.jp-wkey.active span {
+  color: #e0eeff;
+}
+
+.jp-bkey {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 32px;
+  background: linear-gradient(to bottom, #1a1030 0%, #0a0820 100%);
+  border: 1px solid #0a0618;
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.1s ease;
+}
+
+.jp-bkey:hover {
+  background: linear-gradient(to bottom, #1a1a44 0%, #0a0a28 100%);
+}
+
+.jp-bkey.active {
+  background: linear-gradient(to bottom, #2255bb 0%, #1133aa 100%);
+  box-shadow: 0 0 6px rgba(68,136,220,0.65);
+}
+
+/* ── Step props panel ───────────────────────────────────── */
+.jp-step-props {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.jp-prop-row {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.jp-prop-btn {
+  background: #120828;
+  color: #7755aa;
+  border: 1px solid #2a1050;
+  border-radius: 3px;
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.1s ease;
+  text-align: center;
+}
+
+.jp-prop-btn:hover {
+  border-color: #4422aa;
+  color: #9977cc;
+  background: #180a30;
+}
+
+.jp-prop-btn.active {
+  background: #0a1040;
+  color: #88ccff;
+  border-color: #2266cc;
+  box-shadow: 0 0 5px rgba(68,136,220,0.45);
+}
+
+/* ── Transport row ──────────────────────────────────────── */
+.jp-transport {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.jp-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+/* ── Play / Stop buttons ────────────────────────────────── */
+.btn-play-jp {
+  background: linear-gradient(to bottom, #0d1a42 0%, #080e2e 100%);
+  color: #4488cc;
+  border: 1px solid #1a3a8a;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.12s ease;
+}
+
+.btn-play-jp:hover {
+  border-color: #2a5aaa;
+  color: #66aaee;
+  background: linear-gradient(to bottom, #122052 0%, #0c1838 100%);
+}
+
+.btn-play-jp.on {
+  background: linear-gradient(to bottom, #0a1a50 0%, #081440 100%);
+  color: #88ccff;
+  border-color: #2277dd;
+  box-shadow: 0 0 10px rgba(68,136,220,0.65), inset 0 0 6px rgba(68,136,220,0.1);
+}
+
+.btn-stop-jp {
+  background: linear-gradient(to bottom, #3a1010 0%, #280a0a 100%);
+  color: #aa5a5a;
+  border: 1px solid #5a2020;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.12s ease;
+}
+
+.btn-stop-jp:hover {
+  border-color: #7a3030;
+  color: #cc7a7a;
+  background: linear-gradient(to bottom, #4a1818 0%, #381010 100%);
+}
+
+/* ── Preset buttons ─────────────────────────────────────── */
+.pat-b-jp {
+  background: #120828;
+  color: #7755aa;
+  border: 1px solid #2a1050;
+  border-radius: 3px;
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.1s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pat-b-jp:hover {
+  background: #180a30;
+  color: #9977cc;
+  border-color: #4422aa;
+}
+
+.pat-b-jp:active {
+  background: #0a1040;
+  color: #88ccff;
+  border-color: #2266cc;
+}

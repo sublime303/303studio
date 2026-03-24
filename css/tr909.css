@@ -1,0 +1,107 @@
+/* ── TR-909 Styles ──
+   Steel grey / industrial metal aesthetic.
+   Owner: TR-909 agent
+   ────────────────────────────────────────── */
+
+/* Header */
+.tr909-header-bar { background: #444a50; }
+.tr909-header-bar .inst-title { color: #fff; }
+.tr909-header-bar .inst-type-tag { background: rgba(0,0,0,0.3); color: #ffcc99; }
+
+/* Card */
+.tr909-card {
+  background: linear-gradient(170deg, #c8cdd2, #b0b5ba);
+  padding: 14px 16px 16px;
+  position: relative;
+}
+
+/* Panel */
+.t9-panel {
+  background: linear-gradient(180deg, #2a2e32, #1e2226);
+  border-radius: 7px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
+}
+.t9-panel:last-child { margin-bottom: 0; }
+
+.t9-lbl {
+  font-size: 8px;
+  color: #556;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 9px;
+  text-align: center;
+}
+
+/* Voice name colour override for 909 */
+.tr909-card .voice-name { color: #88aacc; }
+
+/* Steps */
+.steps-909 { display: flex; gap: 3px; }
+
+.drum-step-9 {
+  width: 24px;
+  height: 28px;
+  background: #3a3e44;
+  border: 1px solid #1a1e22;
+  border-radius: 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.08s;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.drum-step-9:active { transform: translateY(1px); }
+.drum-step-9.on {
+  background: radial-gradient(circle, #4488ff, #2255cc);
+  box-shadow: 0 0 6px rgba(68,136,255,0.6), inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.drum-step-9.playing {
+  background: radial-gradient(circle, #aaddff, #66aaff);
+  box-shadow: 0 0 10px rgba(170,221,255,0.8);
+}
+
+/* Transport */
+.t9-transport {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.t9-btns { display: flex; gap: 6px; }
+
+.btn-play9 {
+  background: linear-gradient(180deg, #1a3a5a, #102840);
+  color: #88bbdd;
+  padding: 7px 14px;
+}
+.btn-play9:hover { background: linear-gradient(180deg, #2a4a6a, #1a3850); }
+.btn-play9.on {
+  background: linear-gradient(180deg, #4488cc, #2266aa);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(68,136,204,0.4);
+}
+
+.btn-stop9 {
+  background: linear-gradient(180deg, #6a1010, #4a0808);
+  color: #ffaaaa;
+  padding: 7px 14px;
+}
+
+/* Preset buttons */
+.pat-b9 {
+  padding: 5px 9px;
+  background: #2a2e34;
+  border: 1px solid #1a1e24;
+  border-radius: 3px;
+  color: #6a8aaa;
+  font-size: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.1s;
+}
+.pat-b9:hover { background: #3a3e46; color: #aaccee; }
+
+/* Badge */
+.badge-909 { background: #2a4a6a; color: #88bbdd; }

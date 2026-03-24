@@ -1,0 +1,305 @@
+/* ═══════════════════════════════════════════════════
+   MINIMOOG INSTRUMENT STYLES
+   Owner: Minimoog agent — do not edit from other agents
+   ═══════════════════════════════════════════════════ */
+
+/* Header bar */
+.minimoog-header-bar { background: #8a1111; }
+.minimoog-header-bar .inst-title { color: #fff; }
+.minimoog-header-bar .inst-type-tag { background: rgba(0,0,0,0.3); color: #ffcccc; }
+
+/* Card body — warm cream/ivory gradient */
+.minimoog-card {
+  background: linear-gradient(170deg, #ede5d5, #d8cdb8);
+  padding: 14px 16px 16px;
+  position: relative;
+}
+.minimoog-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.06) 0,
+    rgba(255,255,255,0) 1px,
+    rgba(255,255,255,0) 3px,
+    rgba(255,255,255,0.06) 4px
+  );
+}
+
+/* Dark panel sections */
+.moog-panel {
+  background: linear-gradient(180deg, #1e1508, #141008);
+  border-radius: 7px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.7),
+    inset 0 -1px 0 rgba(255,220,100,0.04),
+    0 1px 3px rgba(0,0,0,0.4);
+}
+.moog-panel:last-child { margin-bottom: 0; }
+
+/* Labels */
+.moog-lbl {
+  font-size: 8px;
+  color: #aa7722;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 9px;
+  text-align: center;
+}
+
+/* Controls row */
+.moog-controls {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* Wave selector section */
+.moog-wave-sect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  margin-right: 6px;
+}
+
+/* Wave buttons */
+.moog-wave-btn {
+  width: 52px;
+  height: 21px;
+  background: #2a2010;
+  border: 1px solid #3a2a10;
+  border-radius: 3px;
+  color: #886644;
+  font-size: 9px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  transition: all 0.1s;
+}
+.moog-wave-btn:hover { background: #3a2e18; color: #ccaa66; }
+.moog-wave-btn.active {
+  background: #cc1111;
+  color: #fff;
+  border-color: #991111;
+  box-shadow: 0 0 8px rgba(204,17,17,0.55), 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Step sequencer row */
+.moog-steps-row {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+}
+
+/* Step buttons */
+.moog-step {
+  width: 46px;
+  height: 50px;
+  background: linear-gradient(180deg, #2a1e0a, #1a1208);
+  border: 2px solid #111;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,200,100,0.05);
+  transition: border-color 0.08s;
+  flex-shrink: 0;
+}
+.moog-step:active { transform: translateY(1px); }
+
+.moog-step.selected {
+  border-color: #ffffff;
+  background: linear-gradient(180deg, #3a2a12, #2a1e0c);
+}
+
+.moog-step.playing {
+  background: linear-gradient(180deg, #3a2000, #281600);
+  border-color: #ff8800;
+  box-shadow: 0 0 10px rgba(255,140,0,0.6), 0 0 20px rgba(255,100,0,0.3);
+}
+
+.moog-step.has-note {
+  background: linear-gradient(180deg, #2e1e08, #1e1408);
+  border-top: 2px solid #cc1111;
+}
+
+.moog-step.is-rest {
+  background: linear-gradient(180deg, #181008, #100c06);
+}
+
+/* Step content elements */
+.moog-step-note {
+  font-size: 11px;
+  font-weight: bold;
+  color: #dd4422;
+}
+.moog-step.is-rest .moog-step-note { display: none; }
+
+.moog-step-oct {
+  font-size: 8px;
+  color: #aa7722;
+  min-height: 9px;
+}
+
+.moog-step-rest {
+  font-size: 12px;
+  color: #3a2e1a;
+  font-style: italic;
+}
+
+/* Note entry area */
+.moog-note-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* Piano wrap */
+.moog-piano-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Piano keyboard */
+.moog-piano {
+  position: relative;
+  height: 58px;
+  width: 252px;
+  flex-shrink: 0;
+}
+
+/* White keys — cream tone with red highlight */
+.m-wkey {
+  position: absolute;
+  height: 58px;
+  background: linear-gradient(180deg, #e8e0cc, #d4c8aa);
+  border: 1px solid #9a8060;
+  border-radius: 0 0 4px 4px;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3px;
+  transition: background 0.05s;
+}
+.m-wkey span { font-size: 7px; color: #7a6040; font-weight: bold; }
+.m-wkey:hover { background: linear-gradient(180deg, #ffddaa, #ffbb66); }
+.m-wkey.active { background: linear-gradient(180deg, #ee3311, #cc1100) !important; }
+.m-wkey.active span { color: #fff; }
+
+/* Black keys */
+.m-bkey {
+  position: absolute;
+  height: 36px;
+  width: 22px;
+  background: linear-gradient(180deg, #1e1408, #0c0804);
+  border: 1px solid #000;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  z-index: 2;
+  top: 0;
+  transition: background 0.05s;
+}
+.m-bkey:hover { background: linear-gradient(180deg, #9a1a0a, #6a1008); }
+.m-bkey.active { background: linear-gradient(180deg, #ee3311, #aa1100) !important; }
+
+/* Step properties */
+.moog-step-props {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+.moog-prop-row {
+  display: flex;
+  gap: 5px;
+}
+.moog-prop-btn {
+  padding: 5px 10px;
+  background: #2a1e0a;
+  border: 1px solid #1e1608;
+  border-radius: 3px;
+  color: #886644;
+  font-size: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.moog-prop-btn:hover { background: #3a2e14; color: #ccaa66; }
+.moog-prop-btn.active {
+  background: #cc1111;
+  color: #fff;
+  border-color: #991111;
+  box-shadow: 0 0 6px rgba(204,17,17,0.45);
+}
+
+/* Transport */
+.moog-transport {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.moog-btns {
+  display: flex;
+  gap: 7px;
+}
+
+/* Play button */
+.btn-play-moog {
+  background: linear-gradient(180deg, #1a5a1a, #0e3e0e);
+  color: #88cc88;
+}
+.btn-play-moog:hover { background: linear-gradient(180deg, #1e6a1e, #124812); }
+.btn-play-moog.on {
+  background: linear-gradient(180deg, #33cc33, #228822);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(51,204,51,0.55);
+}
+
+/* Stop button */
+.btn-stop-moog {
+  background: linear-gradient(180deg, #7a1111, #551010);
+  color: #ffaaaa;
+}
+.btn-stop-moog:hover { background: linear-gradient(180deg, #991515, #6a1212); }
+
+/* Preset buttons */
+.pat-b-moog {
+  padding: 5px 9px;
+  background: #2a1e0a;
+  border: 1px solid #1e1608;
+  border-radius: 3px;
+  color: #886644;
+  font-size: 8px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.1s;
+}
+.pat-b-moog:hover { background: #3a2e14; color: #ccaa66; }
+
+/* Badge */
+.badge-moog {
+  background: #8a1111;
+  color: #fff;
+}

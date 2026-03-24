@@ -1,0 +1,486 @@
+/* ─────────────────────────────────────────────────────────────
+   Roland Juno-106 Pad — dark navy / midnight blue theme
+   Teal/cyan accents, cream step buttons
+───────────────────────────────────────────────────────────── */
+
+/* ── Header bar ─────────────────────────────────────────── */
+.juno106-header-bar {
+  background: #1a2a4a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 6px 6px 0 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #2a4a7a;
+}
+
+.juno106-header-bar .tag {
+  color: #88ddcc;
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* ── Badge ──────────────────────────────────────────────── */
+.badge-juno {
+  background: #1a5a5a;
+  color: #88ddcc;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* ── Card ───────────────────────────────────────────────── */
+.juno106-card {
+  background: linear-gradient(160deg, #1e2a3e 0%, #162034 100%);
+  padding: 14px 16px 16px;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #1a2a4a;
+  border-top: none;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Panel ──────────────────────────────────────────────── */
+.j106-panel {
+  background: linear-gradient(160deg, #0e1620 0%, #0a1018 100%);
+  border-radius: 7px;
+  padding: 12px 14px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.7), inset 0 0 1px rgba(74,138,138,0.15);
+  margin-bottom: 8px;
+}
+
+/* ── Section labels ─────────────────────────────────────── */
+.j106-lbl {
+  color: #4a8a8a;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 9px;
+}
+
+.j106-sub-lbl {
+  color: #4a8a8a;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+/* ── Controls row ───────────────────────────────────────── */
+.j106-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* ── Wave / sub section ─────────────────────────────────── */
+.j106-wave-sect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Toggle buttons (SUB / CHORUS) ─────────────────────── */
+.j106-btn {
+  background: #0a1420;
+  color: #4a7a7a;
+  border: 1px solid #1a4a4a;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  min-width: 54px;
+}
+
+.j106-btn:hover {
+  border-color: #2a6a6a;
+  color: #6aaaaa;
+}
+
+.j106-btn.active {
+  background: #0a2a2a;
+  color: #88ddcc;
+  border-color: #2a8a8a;
+  box-shadow: 0 0 6px rgba(74,138,138,0.5), inset 0 0 4px rgba(74,138,138,0.1);
+}
+
+/* ── Vertical divider ───────────────────────────────────── */
+.vdivider {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, #1a3a4a, transparent);
+  margin: 0 2px;
+  flex-shrink: 0;
+}
+
+/* ── Steps row ──────────────────────────────────────────── */
+.j106-steps-row {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Individual step button ─────────────────────────────── */
+.j106-step {
+  width: 42px;
+  height: 54px;
+  background: #080f18;
+  border: 2px solid #1a2535;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: border-color 0.1s ease, background 0.1s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.j106-step:hover {
+  border-color: #2a4a5a;
+  background: #0d1620;
+}
+
+.j106-step.selected {
+  border-color: #4a9aaa;
+  box-shadow: 0 0 5px rgba(74,154,170,0.4);
+}
+
+.j106-step.playing {
+  background: #0a2a2a;
+  border-color: #2aaa8a;
+  box-shadow: 0 0 10px rgba(42,170,138,0.6), inset 0 0 6px rgba(42,170,138,0.15);
+}
+
+.j106-step.has-chord {
+  background: #0c1a28;
+  border-top: 2px solid #2a7a7a;
+}
+
+.j106-step.is-rest {
+  background: #050c14;
+  border-color: #111e2a;
+}
+
+.j106-step-root {
+  font-size: 11px;
+  font-weight: 700;
+  color: #88ddcc;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.j106-step-type {
+  font-size: 8px;
+  color: #4a8a8a;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.j106-step-rest {
+  font-size: 12px;
+  color: #2a3a4a;
+  font-style: italic;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Editor row ─────────────────────────────────────────── */
+.j106-editor-row {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Piano wrap ─────────────────────────────────────────── */
+.j106-piano-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Piano keyboard ─────────────────────────────────────── */
+.j106-piano {
+  position: relative;
+  height: 52px;
+  width: 224px;
+}
+
+.j106-wkey {
+  position: absolute;
+  top: 0;
+  height: 52px;
+  background: linear-gradient(to bottom, #ddd8cc 0%, #f0ece2 60%, #e8e4da 100%);
+  border: 1px solid #3a4a5a;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3px;
+  transition: background 0.1s ease;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.j106-wkey span {
+  font-size: 7px;
+  color: #4a5a6a;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.j106-wkey:hover {
+  background: linear-gradient(to bottom, #c8e8e0 0%, #d8f0e8 60%, #cce8e0 100%);
+}
+
+.j106-wkey.active {
+  background: linear-gradient(to bottom, #4a9a8a 0%, #5abaaa 60%, #48988a 100%);
+  border-color: #2a7a6a;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.j106-wkey.active span {
+  color: #e8f8f4;
+}
+
+.j106-bkey {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 32px;
+  background: linear-gradient(to bottom, #1a2535 0%, #0a1520 100%);
+  border: 1px solid #0a1020;
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.1s ease;
+}
+
+.j106-bkey:hover {
+  background: linear-gradient(to bottom, #1a3a3a 0%, #0a2020 100%);
+}
+
+.j106-bkey.active {
+  background: linear-gradient(to bottom, #2a7a6a 0%, #1a5a4a 100%);
+  box-shadow: 0 0 6px rgba(74,138,138,0.6);
+}
+
+/* ── Chord props panel ──────────────────────────────────── */
+.j106-chord-props {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ── Chord type row ─────────────────────────────────────── */
+.j106-type-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3px;
+  max-width: 220px;
+}
+
+.j106-type-btn {
+  background: #0a1420;
+  color: #4a7a7a;
+  border: 1px solid #1a3a4a;
+  border-radius: 3px;
+  padding: 3px 7px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.1s ease;
+  text-transform: lowercase;
+  min-width: 32px;
+  text-align: center;
+}
+
+.j106-type-btn:hover {
+  border-color: #2a6a6a;
+  color: #6aaaaa;
+  background: #0d1a24;
+}
+
+.j106-type-btn.active {
+  background: #0a2a2a;
+  color: #88ddcc;
+  border-color: #2a8a8a;
+  box-shadow: 0 0 5px rgba(74,138,138,0.4);
+}
+
+/* ── Octave + rest row ──────────────────────────────────── */
+.j106-oct-row {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.j106-prop-btn {
+  background: #0a1420;
+  color: #4a7a7a;
+  border: 1px solid #1a3a4a;
+  border-radius: 3px;
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.1s ease;
+  text-align: center;
+}
+
+.j106-prop-btn:hover {
+  border-color: #2a6a6a;
+  color: #6aaaaa;
+  background: #0d1a24;
+}
+
+.j106-prop-btn.active {
+  background: #0a2a2a;
+  color: #88ddcc;
+  border-color: #2a8a8a;
+  box-shadow: 0 0 5px rgba(74,138,138,0.4);
+}
+
+/* ── Transport row ──────────────────────────────────────── */
+.j106-transport {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.j106-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+/* ── Play / Stop buttons ────────────────────────────────── */
+.btn-play-juno {
+  background: linear-gradient(to bottom, #0d3a2a 0%, #082a1e 100%);
+  color: #4aaa8a;
+  border: 1px solid #1a6a4a;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.12s ease;
+}
+
+.btn-play-juno:hover {
+  border-color: #2a8a5a;
+  color: #6acc9a;
+  background: linear-gradient(to bottom, #124a32 0%, #0c3224 100%);
+}
+
+.btn-play-juno.on {
+  background: linear-gradient(to bottom, #0a4a2a 0%, #083820 100%);
+  color: #88ddbb;
+  border-color: #2aaa6a;
+  box-shadow: 0 0 10px rgba(42,170,100,0.6), inset 0 0 6px rgba(42,170,100,0.1);
+}
+
+.btn-stop-juno {
+  background: linear-gradient(to bottom, #3a1010 0%, #280a0a 100%);
+  color: #aa5a5a;
+  border: 1px solid #5a2020;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.12s ease;
+}
+
+.btn-stop-juno:hover {
+  border-color: #7a3030;
+  color: #cc7a7a;
+  background: linear-gradient(to bottom, #4a1818 0%, #381010 100%);
+}
+
+/* ── Preset buttons ─────────────────────────────────────── */
+.pat-btns3 {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pat-b-juno {
+  background: #0a1a2a;
+  color: #5a8aaa;
+  border: 1px solid #1a3a5a;
+  border-radius: 3px;
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.1s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pat-b-juno:hover {
+  background: #0d2236;
+  color: #7aaac8;
+  border-color: #2a5a7a;
+}
+
+.pat-b-juno:active {
+  background: #0a2a3a;
+  color: #88ccee;
+  border-color: #2a6a8a;
+}
+
+/* ── t-btn base (shared transport button style) ─────────── */
+.t-btn {
+  min-width: 64px;
+}
