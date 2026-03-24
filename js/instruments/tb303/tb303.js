@@ -47,27 +47,47 @@
       // ── Controls panel ──
       const ctrlPanel = mk('div', 'tb3-dark');
       ctrlPanel.innerHTML = '<div class="panel-lbl">Synthesizer Controls</div>';
-      const ctrlRow = mk('div', 'tb3-controls');
 
-      const waveSect = mk('div', 'wave-sect');
-      waveSect.innerHTML = '<div class="wave-lbl">Wave</div>';
-      const sawBtn = mk('button', 'wave-btn active'); sawBtn.textContent = 'SAW';
-      const squBtn = mk('button', 'wave-btn');        squBtn.textContent = 'SQU';
-      sawBtn.onclick = () => { this.eng.setWave('sawtooth'); sawBtn.classList.add('active'); squBtn.classList.remove('active'); };
-      squBtn.onclick = () => { this.eng.setWave('square');   squBtn.classList.add('active'); sawBtn.classList.remove('active'); };
-      waveSect.append(sawBtn, squBtn);
-      ctrlRow.appendChild(waveSect);
-      ctrlRow.appendChild(mk('div', 'vdivider'));
+      const synthLayout = mk('div', 'tb3-synth-layout');
+
+      const envRow = mk('div', 'tb303-env-lcd');
+      const svgNs = 'http://www.w3.org/2000/svg';
+      const envSvg = document.createElementNS(svgNs, 'svg');
+      envSvg.setAttribute('class', 'tb303-env-svg');
+      envSvg.setAttribute('viewBox', '0 0 100 100');
+      envSvg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+      envSvg.setAttribute('aria-hidden', 'true');
+      const envBg = document.createElementNS(svgNs, 'rect');
+      envBg.setAttribute('class', 'tb303-env-bg');
+      envBg.setAttribute('x', '0'); envBg.setAttribute('y', '0');
+      envBg.setAttribute('width', '100'); envBg.setAttribute('height', '100'); envBg.setAttribute('rx', '3');
+      const envLbl = document.createElementNS(svgNs, 'text');
+      envLbl.setAttribute('class', 'tb303-env-lbl');
+      envLbl.setAttribute('x', '50'); envLbl.setAttribute('y', '95');
+      envLbl.setAttribute('text-anchor', 'middle');
+      envLbl.textContent = 'FILTER ENV';
+      const pathAcc = document.createElementNS(svgNs, 'path');
+      pathAcc.setAttribute('class', 'tb303-env-path tb303-env-path-accent');
+      pathAcc.setAttribute('fill', 'none');
+      const pathMain = document.createElementNS(svgNs, 'path');
+      pathMain.setAttribute('class', 'tb303-env-path tb303-env-path-main');
+      pathMain.setAttribute('fill', 'none');
+      envSvg.append(envBg, pathAcc, pathMain, envLbl);
+      envRow.appendChild(envSvg);
+      this._envPathMain = pathMain;
+      this._envPathAccent = pathAcc;
 
       const KNOB_DEFS = [
         { cls:'k-tune',   key:'tune',   lbl:'Tune',       min:-7, max:7, val:0,    cb:v => this.eng.setTune(Math.round(v)) },
-        { cls:'k-cutoff', key:'cutoff', lbl:'Cutoff Freq',min:0,  max:1, val:0.38, cb:v => this.eng.setCutoff(v) },
+        { cls:'k-cutoff', key:'cutoff', lbl:'Cutoff',     min:0,  max:1, val:0.38, cb:v => this.eng.setCutoff(v) },
         { cls:'k-reso',   key:'reso',   lbl:'Resonance',  min:0,  max:1, val:0.32, cb:v => this.eng.setReso(v)   },
         { cls:'k-envmod', key:'envMod', lbl:'Env Mod',    min:0,  max:1, val:0.50, cb:v => this.eng.setEnvMod(v) },
         { cls:'k-decay',  key:'decay',  lbl:'Decay',      min:0,  max:1, val:0.28, cb:v => this.eng.setDecay(v)  },
         { cls:'k-accent', key:'accent', lbl:'Accent',     min:0,  max:1, val:0.60, cb:v => this.eng.setAccent(v) },
       ];
-      KNOB_DEFS.forEach(kd => {
+      const byCls = Object.fromEntries(KNOB_DEFS.map(k => [k.cls, k]));
+
+      const mkKnob = kd => {
         const g = mk('div', 'knob-group ' + kd.cls);
         const k = mk('div', 'knob'); const ind = mk('div', 'knob-indicator');
         k.appendChild(ind);
@@ -76,14 +96,51 @@
         clrBtn.title = 'Clear saved ' + kd.lbl + ' for this step';
         clrBtn.onclick = () => this._clearOneKnob(kd.key);
         g.append(clrBtn, k, lbl);
-        ctrlRow.appendChild(g);
         this._knobs[kd.cls] = new global.Knob(k, ind, {
-          min: kd.min, max: kd.max, val: kd.val, onChange: kd.cb,
+          min: kd.min, max: kd.max, val: kd.val,
+          onChange: v => {
+            kd.cb(v);
+            this._refreshEnvDiagram();
+          },
           onInteractionEnd: () => this._saveOneKnobToStep(kd.key, this._knobs[kd.cls].value),
         });
         this._knobClearBtns[kd.key] = clrBtn;
-      });
-      ctrlPanel.appendChild(ctrlRow);
+        return g;
+      };
+
+      const knobStrip = mk('div', 'tb3-knob-strip');
+
+      const gOsc = mk('div', 'tb303-knob-group');
+      const oscLbl = mk('div', 'tb303-group-lbl'); oscLbl.textContent = 'OSC';
+      const oscRow = mk('div', 'tb303-group-knobs');
+      const waveSect = mk('div', 'wave-sect');
+      waveSect.innerHTML = '<div class="wave-lbl">Wave</div>';
+      const sawBtn = mk('button', 'wave-btn active'); sawBtn.textContent = 'SAW';
+      const squBtn = mk('button', 'wave-btn');        squBtn.textContent = 'SQU';
+      sawBtn.onclick = () => { this.eng.setWave('sawtooth'); sawBtn.classList.add('active'); squBtn.classList.remove('active'); };
+      squBtn.onclick = () => { this.eng.setWave('square');   squBtn.classList.add('active'); sawBtn.classList.remove('active'); };
+      waveSect.append(sawBtn, squBtn);
+      oscRow.appendChild(waveSect);
+      oscRow.appendChild(mk('div', 'tb303-mini-div'));
+      oscRow.appendChild(mkKnob(byCls['k-tune']));
+      gOsc.append(oscLbl, oscRow);
+
+      const gVcf = mk('div', 'tb303-knob-group');
+      const vcfLbl = mk('div', 'tb303-group-lbl'); vcfLbl.textContent = 'VCF';
+      const vcfRow = mk('div', 'tb303-group-knobs');
+      vcfRow.append(mkKnob(byCls['k-cutoff']), mkKnob(byCls['k-reso']));
+      gVcf.append(vcfLbl, vcfRow);
+
+      const gEnv = mk('div', 'tb303-knob-group');
+      const envGLbl = mk('div', 'tb303-group-lbl'); envGLbl.textContent = 'ENV';
+      const envRowKnobs = mk('div', 'tb303-group-knobs');
+      envRowKnobs.append(mkKnob(byCls['k-envmod']), mkKnob(byCls['k-decay']), mkKnob(byCls['k-accent']));
+      gEnv.append(envGLbl, envRowKnobs);
+
+      knobStrip.append(gOsc, gVcf, gEnv);
+      synthLayout.appendChild(knobStrip);
+      synthLayout.appendChild(envRow);
+      ctrlPanel.appendChild(synthLayout);
       root.appendChild(ctrlPanel);
 
       // ── Sequencer panel ──
@@ -204,7 +261,46 @@
       };
 
       this._loadPreset(0);
+      this._refreshEnvDiagram();
       return root;
+    }
+
+    _refreshEnvDiagram() {
+      if (!this._envPathMain || !this.eng) return;
+      const yHz = hz => {
+        const lo = Math.log(22);
+        const hi = Math.log(18000);
+        const h = Math.max(22, Math.min(18000, hz));
+        const t = (Math.log(h) - lo) / (hi - lo);
+        return 18 + (1 - t) * 62;
+      };
+      const pathFrom = shape => {
+        const { cutHz, peakHz, decaySec } = shape;
+        const yCut = yHz(cutHz);
+        const atk = 2.5;
+        const rel = 6.5;
+        const decayW = Math.min(46, 8 + decaySec * 22);
+        const susW = Math.max(5, 100 - atk - decayW - rel);
+        const strong = peakHz > cutHz + 5;
+        if (!strong) {
+          return `M 0 ${yCut} L ${100 - rel} ${yCut} L 100 ${Math.min(88, yCut + 5)}`;
+        }
+        const yPeak = yHz(peakHz);
+        const parts = [`M 0 ${yPeak}`, `L ${atk} ${yPeak}`];
+        const n = 26;
+        for (let i = 1; i <= n; i++) {
+          const u = i / n;
+          const hz = peakHz * Math.pow(cutHz / peakHz, u);
+          const x = atk + u * decayW;
+          parts.push(`L ${x.toFixed(2)} ${yHz(hz).toFixed(2)}`);
+        }
+        const xSus = atk + decayW;
+        const xRel = xSus + susW;
+        parts.push(`L ${xSus.toFixed(2)} ${yCut}`, `L ${xRel.toFixed(2)} ${yCut}`, `L 100 ${Math.min(88, yCut + 5)}`);
+        return parts.join(' ');
+      };
+      this._envPathMain.setAttribute('d', pathFrom(this.eng.envelopeDiagram(false)));
+      this._envPathAccent.setAttribute('d', pathFrom(this.eng.envelopeDiagram(true)));
     }
 
     // ── Internal UI helpers ─────────────────────────────────────────

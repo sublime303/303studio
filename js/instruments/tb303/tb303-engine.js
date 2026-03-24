@@ -25,6 +25,15 @@
     resoQ()     { return 0.6 + this.resonance * 19.4;        }  // 0.6–20
     decaySec()  { return 0.05 * Math.pow(36,  this.decay);   }  // 50ms–1.8s
 
+    /** Filter envelope shape for UI (same math as noteOn). accent = accented step */
+    envelopeDiagram(accent) {
+      const cutHz = this.cutoffHz();
+      const decaySec = this.decaySec() * (accent ? 1.6 : 1.0);
+      const boost = accent ? (1 + this.accentAmt * 0.7) : 1;
+      const peakHz = Math.min(cutHz * Math.pow(2, this.envMod * 4.5 * boost), 18000);
+      return { cutHz, peakHz, decaySec };
+    }
+
     /** Lazy init — call inside a user-gesture handler */
     init(ctx, dest) {
       if (this.ready) return;
