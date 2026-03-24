@@ -182,9 +182,7 @@
       // Wire sequencer step callback
       this.seq.onStep = idx => {
         this._stepBtns.forEach((b, j) => b.classList.toggle('playing', j === idx));
-        if (idx >= 0 && this.seq.steps[idx].knobs) {
-          this._applyStepKnobs(this.seq.steps[idx].knobs);
-        }
+        if (idx >= 0) this._applyInterpolatedKnobs(idx);
       };
 
       this._loadPreset(0);
@@ -210,14 +208,61 @@
       this._knobClearBtns[dataKey].classList.remove('active');
     }
 
-    _applyStepKnobs(knobs, ms) {
-      const dur = ms ?? global.Bus.clock.stepDur() * 1000 * 0.8;
-      if (knobs.tune   != null) this._knobs['k-tune'].setValueAnimated(knobs.tune, dur);
-      if (knobs.cutoff != null) this._knobs['k-cutoff'].setValueAnimated(knobs.cutoff, dur);
-      if (knobs.reso   != null) this._knobs['k-reso'].setValueAnimated(knobs.reso, dur);
-      if (knobs.envMod != null) this._knobs['k-envmod'].setValueAnimated(knobs.envMod, dur);
-      if (knobs.decay  != null) this._knobs['k-decay'].setValueAnimated(knobs.decay, dur);
-      if (knobs.accent != null) this._knobs['k-accent'].setValueAnimated(knobs.accent, dur);
+    // Linearly interpolate a knob value at a given step position,
+    // using the nearest saved values before and after as control points.
+    _interpKnobAt(targetIdx, key) {
+      const steps = this.seq.steps;
+      let prevIdx = -1, nextIdx = -1;
+
+      for (let d = 0; d < 16; d++) {
+        const i = ((targetIdx - d) + 16) % 16;
+        if (steps[i].knobs?.[key] != null) { prevIdx = i; break; }
+      }
+      for (let d = 1; d <= 16; d++) {
+        const i = (targetIdx + d) % 16;
+        if (steps[i].knobs?.[key] != null) { nextIdx = i; break; }
+      }
+
+      if (prevIdx === -1 && nextIdx === -1) return null;
+      if (prevIdx === -1) return steps[nextIdx].knobs[key];
+      if (nextIdx === -1) return steps[prevIdx].knobs[key];
+
+      const pv = steps[prevIdx].knobs[key];
+      const nv = steps[nextIdx].knobs[key];
+      if (prevIdx === nextIdx) return pv; // only one control point
+
+      const span = (nextIdx - prevIdx + 16) % 16;
+      const dist = (targetIdx - prevIdx + 16) % 16;
+      return pv + (nv - pv) * (dist / span);
+    }
+
+    // Called on each step during playback — animates each knob linearly
+    // toward its interpolated value at the next step position.
+    _applyInterpolatedKnobs(idx) {
+      const dur     = global.Bus.clock.stepDur() * 1000;
+      const nextIdx = (idx + 1) % 16;
+      const KNOB_KEYS = [
+        ['tune',   'k-tune'],
+        ['cutoff', 'k-cutoff'],
+        ['reso',   'k-reso'],
+        ['envMod', 'k-envmod'],
+        ['decay',  'k-decay'],
+        ['accent', 'k-accent'],
+      ];
+      KNOB_KEYS.forEach(([key, cls]) => {
+        const target = this._interpKnobAt(nextIdx, key);
+        if (target != null) this._knobs[cls].setValueAnimated(target, dur, 'linear');
+      });
+    }
+
+    // Used only for UI step selection (snaps with ease to exact saved values)
+    _applyStepKnobs(knobs, ms = 120) {
+      if (knobs.tune   != null) this._knobs['k-tune'].setValueAnimated(knobs.tune, ms, 'ease');
+      if (knobs.cutoff != null) this._knobs['k-cutoff'].setValueAnimated(knobs.cutoff, ms, 'ease');
+      if (knobs.reso   != null) this._knobs['k-reso'].setValueAnimated(knobs.reso, ms, 'ease');
+      if (knobs.envMod != null) this._knobs['k-envmod'].setValueAnimated(knobs.envMod, ms, 'ease');
+      if (knobs.decay  != null) this._knobs['k-decay'].setValueAnimated(knobs.decay, ms, 'ease');
+      if (knobs.accent != null) this._knobs['k-accent'].setValueAnimated(knobs.accent, ms, 'ease');
     }
 
     _selectStep(i) {

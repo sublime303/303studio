@@ -69,12 +69,12 @@
     }
 
     /** Set value with a smooth rotation animation (does not trigger onInteractionEnd) */
-    setValueAnimated(v, ms = 100) {
+    setValueAnimated(v, ms = 100, easing = 'linear') {
       if (this._dy !== null) return; // user is holding this knob — don't override
       if (this.ind) {
         this.ind.style.transition = '';
         void this.ind.offsetWidth; // force reflow so browser commits current position
-        this.ind.style.transition = `transform ${ms}ms ease`;
+        this.ind.style.transition = `transform ${ms}ms ${easing}`;
       }
       this.setValue(v);
       if (this.ind) setTimeout(() => { this.ind.style.transition = ''; }, ms + 20);
