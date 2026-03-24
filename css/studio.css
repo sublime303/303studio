@@ -9,10 +9,40 @@ body{background:#080808;min-height:100vh;font-family:'Arial',sans-serif;padding-
 .studio-header{
   background:linear-gradient(180deg,#1c1c1c,#141414);
   border-bottom:2px solid #2a2a2a;
-  padding:12px 20px;display:flex;align-items:center;gap:14px;
+  padding:12px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;
   position:sticky;top:0;z-index:100;
   box-shadow:0 4px 20px rgba(0,0,0,0.8);
 }
+/* ── Whole-song save / import (header) ── */
+.studio-song-actions{
+  display:flex;align-items:center;gap:6px;flex-wrap:wrap;
+  max-width:min(100%,420px);
+}
+.studio-song-icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  padding:5px;min-width:30px;min-height:30px;
+  letter-spacing:0;text-transform:none;
+}
+.studio-song-icon-btn .studio-song-icon{
+  width:16px;height:16px;display:block;flex-shrink:0;
+}
+.studio-song-icon-btn svg{vertical-align:middle}
+.studio-song-name{
+  width:128px;max-width:30vw;padding:6px 8px;border-radius:4px;
+  border:1px solid #444;background:#121212;color:#ccc;font-size:11px;
+}
+.studio-song-name::placeholder{color:#555}
+.studio-song-file-input{
+  position:absolute;width:0;height:0;opacity:0;pointer-events:none;
+}
+.btn-song-export{background:#2a3a5a;color:#aaccee}
+.btn-song-export:hover{background:#354a70}
+.btn-song-import{background:#3a3a2a;color:#ccddaa}
+.btn-song-import:hover{background:#4a4a35}
+.btn-song-save{background:#2a4a3a;color:#aaddcc}
+.btn-song-save:hover{background:#355a4a}
+.btn-song-load{background:#4a3a2a;color:#ddccaa}
+.btn-song-load:hover{background:#5a4a35}
 .studio-logo{display:flex;flex-direction:column;line-height:1;margin-right:8px}
 .studio-logo-main{font-size:18px;font-weight:900;color:#e8620a;letter-spacing:2px}
 .studio-logo-sub{font-size:8px;color:#555;letter-spacing:4px;text-transform:uppercase}

@@ -44,6 +44,24 @@
     </div>
   </div>
   <div class="studio-spacer"></div>
+  <div class="studio-sep"></div>
+  <div class="studio-song-actions">
+    <input type="text" id="studioSongName" class="studio-song-name" placeholder="Song name" maxlength="80" aria-label="Song name for export">
+    <button type="button" id="btnExportSong" class="studio-btn btn-song-export studio-song-icon-btn" title="Export whole song as JSON file" aria-label="Export whole song as JSON file">
+      <svg class="studio-song-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
+    </button>
+    <button type="button" id="btnImportSong" class="studio-btn btn-song-import studio-song-icon-btn" title="Import whole song from JSON file" aria-label="Import whole song from JSON file">
+      <svg class="studio-song-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M17 8l-5-5-5 5"/><path d="M12 3v12"/></svg>
+    </button>
+    <input type="file" id="studioSongFileImport" class="studio-song-file-input" accept="application/json,.json" aria-hidden="true" tabindex="-1">
+    <button type="button" id="btnSaveSongBrowser" class="studio-btn btn-song-save studio-song-icon-btn" title="Save whole song in this browser" aria-label="Save whole song in this browser">
+      <svg class="studio-song-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8"/><path d="M7 3v5h8"/></svg>
+    </button>
+    <button type="button" id="btnLoadSongBrowser" class="studio-btn btn-song-load studio-song-icon-btn" title="Load whole song from this browser" aria-label="Load whole song from this browser">
+      <svg class="studio-song-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+    </button>
+  </div>
+  <div class="studio-sep"></div>
   <div class="add-wrap">
     <button class="add-btn" onclick="toggleAddMenu()">＋ Add Instrument</button>
     <div id="addMenu" class="add-menu">
@@ -107,7 +125,7 @@
 <!-- ── New instruments: add CSS link + 4 script tags above this line ── -->
 
 <!-- ── Studio core (must be last) ───────────────────────────── -->
-<script src="js/core/studio.js?v=2"></script>
+<script src="js/core/studio.js?v=3"></script>
 
 </body>
 </html>

@@ -6,15 +6,133 @@
   'use strict';
 
   const mk = global.mk;
+  const STUDIO_SONG_LS_KEY = '303studio_whole_song_v1';
 
   class Studio {
     constructor() {
       this.instances = [];
+      /** Master volume knob instance (after DOM init) */
+      this.masterKnob = null;
     }
 
     init() {
       this._buildAddMenu();
       this._wireHeader();
+      this._wireSongActions();
+    }
+
+    // ── Whole-song JSON (all instruments) ─────────────────────────
+    getStudioSongData() {
+      return {
+        format:      '303studio-song',
+        version:     1,
+        bpm:         global.Bus.clock.bpm,
+        masterGain:  global.Bus && global.Bus.gain ? global.Bus.gain.gain.value : 0.85,
+        instruments: this.instances.map(inst =>
+          typeof inst.getSongData === 'function' ? inst.getSongData() : null
+        ).filter(Boolean),
+      };
+    }
+
+    applyStudioSongData(data) {
+      if (!data || data.format !== '303studio-song' || !Array.isArray(data.instruments)) {
+        alert('Not a valid 303 Studio song file. For a single instrument, use Import on that instrument\'s panel.');
+        return;
+      }
+      this.stopAll();
+      [...this.instances].forEach(inst => this.remove(inst));
+
+      for (const entry of data.instruments) {
+        if (!entry || !entry.type) continue;
+        const InstrClass = (global.StudioInstruments || {})[entry.type];
+        if (!InstrClass) {
+          console.warn('Skipping unknown instrument type:', entry.type);
+          continue;
+        }
+        this.add(entry.type);
+        const inst = this.instances[this.instances.length - 1];
+        if (typeof inst.applySongData === 'function') inst.applySongData(entry);
+        if (entry.name) {
+          inst.name = entry.name;
+          const titleEl = document.querySelector('#card-' + inst.id + ' .inst-title');
+          if (titleEl) titleEl.textContent = entry.name;
+        }
+      }
+
+      if (typeof data.bpm === 'number') {
+        global.Bus.clock.bpm = Math.max(40, Math.min(280, data.bpm));
+        const disp = document.getElementById('masterBpm');
+        if (disp) disp.textContent = global.Bus.clock.bpm;
+      }
+      if (typeof data.masterGain === 'number' && global.Bus.gain) {
+        const g = Math.max(0, Math.min(1, data.masterGain));
+        global.Bus.gain.gain.value = g;
+        if (this.masterKnob) this.masterKnob.setValue(g);
+      }
+    }
+
+    exportStudioSong() {
+      const nameInp = document.getElementById('studioSongName');
+      const raw = (nameInp && nameInp.value.trim()) || '303studio-song';
+      const data = this.getStudioSongData();
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = raw.replace(/[^a-z0-9_-]/gi, '_') + '.json';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    importStudioSongFromText(text) {
+      let data;
+      try {
+        data = JSON.parse(text);
+      } catch (err) {
+        alert('Could not parse file: ' + err.message);
+        return;
+      }
+      this.applyStudioSongData(data);
+    }
+
+    saveStudioSongLocal() {
+      try {
+        localStorage.setItem(STUDIO_SONG_LS_KEY, JSON.stringify(this.getStudioSongData()));
+      } catch (e) {
+        alert('Could not save to browser storage.');
+      }
+    }
+
+    loadStudioSongLocal() {
+      try {
+        const text = localStorage.getItem(STUDIO_SONG_LS_KEY);
+        if (!text) {
+          alert('No song saved in browser yet.');
+          return;
+        }
+        this.importStudioSongFromText(text);
+      } catch (e) {
+        alert('Could not load from browser storage.');
+      }
+    }
+
+    _wireSongActions() {
+      document.getElementById('btnExportSong')?.addEventListener('click', () => this.exportStudioSong());
+      document.getElementById('btnSaveSongBrowser')?.addEventListener('click', () => this.saveStudioSongLocal());
+      document.getElementById('btnLoadSongBrowser')?.addEventListener('click', () => this.loadStudioSongLocal());
+      document.getElementById('btnImportSong')?.addEventListener('click', () => {
+        document.getElementById('studioSongFileImport')?.click();
+      });
+      const fileInp = document.getElementById('studioSongFileImport');
+      fileInp?.addEventListener('change', evt => {
+        const file = evt.target.files && evt.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+          this.importStudioSongFromText(e.target.result);
+        };
+        reader.readAsText(file);
+        evt.target.value = '';
+      });
     }
 
     // ── Registry-driven add menu ──────────────────────────────────
@@ -40,6 +158,7 @@
       this.instances.push(inst);
       this._renderCard(inst);
       document.getElementById('emptyMsg')?.remove();
+      return inst;
     }
 
     remove(inst) {
@@ -145,7 +264,7 @@
     const kEl  = document.getElementById('masterKnob');
     const iEl  = document.getElementById('masterInd');
     if (!kEl || !iEl) return;
-    new global.Knob(kEl, iEl, { min: 0, max: 1, val: 0.85, onChange: v => {
+    global.studio.masterKnob = new global.Knob(kEl, iEl, { min: 0, max: 1, val: 0.85, onChange: v => {
       if (global.Bus && global.Bus.gain) global.Bus.gain.gain.value = v;
     }});
   }
