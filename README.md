@@ -1,16 +1,74 @@
 # 303 Studio
 
-A multi-instrument web studio with Roland-style TB-303 bass synthesizer and TR-808 drum machine emulations. Built with vanilla JavaScript and the Web Audio API — no build tools, no bundler. Runs directly in the browser.
+A multi-instrument web studio with classic synthesizer and drum machine emulations. Built with vanilla JavaScript and the Web Audio API — no build tools, no bundler. Runs directly in the browser.
+
+### Studio hero
 
 <p align="center">
-  <img src="docs/images/303studio-main.png" alt="303 Studio main view" width="900">
+  <img src="docs/images/303studio-main.png" alt="303 Studio rack with TB-303, TR-808, TR-909, Juno-106, Minimoog, JP-8000, and DX7" width="1200">
+</p>
+
+### UI mockup variants
+
+Realistic dark-theme interface shots in the same spirit as the main rack image (not illustrated / not “cute”).
+
+<p align="center">
+  <img src="docs/images/303studio-ui-rack-full.png" alt="Full vertical rack UI mockup" width="1200"><br>
+  <sub>Full rack — stacked instruments</sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/303studio-ui-rack-2col.png" alt="Two-column rack UI mockup" width="1200"><br>
+  <sub>Two-column layout</sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/303studio-ui-row-grid.png" alt="Row grid compact instruments UI" width="1200"><br>
+  <sub>Wide row grid</sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/303studio-ui-rack-focus.png" alt="Header and TB-303 TR-808 focus mockup" width="1200"><br>
+  <sub>Header + top instruments focus</sub>
+</p>
+
+### Adorable synth illustrations
+
+<p align="center">
+  <img src="docs/images/303studio-hero-chibi-row.png" alt="Chibi kawaii synth characters in a row" width="1200"><br>
+  <sub>Chibi lineup — seven little machines with personality</sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/303studio-hero-isometric.png" alt="Isometric cute toy synthesizers on a shelf" width="1200"><br>
+  <sub>Isometric shelf — glossy toy-style gear</sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/303studio-hero-pastel-float.png" alt="Pastel floating synth icons" width="1200"><br>
+  <sub>Pastel float — soft shapes and sparkles</sub>
+</p>
+
+<p align="center">
+  <img src="docs/images/303studio-hero-cozy-desk.png" alt="Cozy night desk with glowing synths" width="1200"><br>
+  <sub>Cozy desk — lofi night studio vibes</sub>
 </p>
 
 ## Features
 
-- **TB-303 Bass Line** — 16-step sequencer, saw/square waveforms, accent & slide, per-step knob automation (cutoff, resonance, decay, etc.)
-- **TR-808 Rhythm Composer** — 7 drum voices with independent patterns, per-voice level and tune knobs
-- **Multi-instrument rack** — Add multiple TB-303s and TR-808s, all synced to a master clock
+### Synthesizers
+- **TB-303 Bass Line** — 16-step sequencer, saw/square waveforms, accent & slide, per-step knob automation
+- **Roland Juno-106** — Pad synth with sub osc, chorus, and 16-step sequencer
+- **Moog Minimoog** — Classic monosynth lead with oscillators and filter
+- **Roland JP-8000** — Supersaw pads with chord mode and 16-step sequencer
+- **Yamaha DX7** — FM synthesis with algorithm selector and 16-step sequencer
+
+### Drum machines
+- **TR-808 Rhythm Composer** — 7 drum voices with independent patterns, per-voice level and tune
+- **TR-909 Drum Machine** — Expanded drum sequencer with multiple voices
+
+### Studio
+- **Multi-instrument rack** — Add any combination of instruments, all synced to a master clock
 - **Zero dependencies** — Pure HTML, CSS, and JS; works from `file://` or any static host
 - **Export & import** — Save patterns as JSON
 
@@ -40,10 +98,15 @@ No server required. For best results, use a modern browser (Chrome, Firefox, Saf
 ├── index.html           # Standalone TB-303 emulator
 ├── css/
 │   ├── studio.css       # Rack, header, shared styles
-│   ├── tb303.css        # TB-303 card styles
-│   └── tr808.css        # TR-808 card styles
+│   ├── tb303.css        # TB-303
+│   ├── tr808.css        # TR-808
+│   ├── tr909.css        # TR-909
+│   ├── juno106.css      # Juno-106
+│   ├── minimoog.css     # Minimoog
+│   ├── jp8000.css       # JP-8000
+│   └── dx7.css          # DX7
 ├── js/core/             # Bus, Knob, Studio bootstrap
-└── js/instruments/      # TB-303 and TR-808 engines & sequencers
+└── js/instruments/      # tb303, tr808, tr909, juno106, minimoog, jp8000, dx7
 ```
 
 For architecture details, plugin interface, and how to add new instruments, see [ARCHITECTURE.md](ARCHITECTURE.md).
