@@ -1,6 +1,7 @@
 /* ═══════════════════════════════════════════════════
    STUDIO SHELL — rack, header, card wrapper, shared knob
    ═══════════════════════════════════════════════════ */
+/* cache-bust: v4 */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:#080808;min-height:100vh;font-family:'Arial',sans-serif;padding-bottom:60px}
