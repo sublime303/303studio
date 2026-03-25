@@ -1,0 +1,123 @@
+/* ── Speaker Test instrument ── */
+.spk-header-bar {
+  background: linear-gradient(180deg, #2a3a32, #1a2520);
+  border-bottom: 1px solid #3a5a4a;
+}
+
+.badge-spk {
+  background: #2d6a4a;
+  color: #c8f0dd;
+}
+
+.spk-card {
+  background: #121814;
+  padding: 0;
+}
+
+.spk-panel {
+  padding: 12px 14px 14px;
+}
+
+.spk-panel-lbl {
+  font-size: 9px;
+  color: #5a7a6a;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.spk-wave-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.spk-wave-lbl {
+  font-size: 9px;
+  color: #888;
+  text-transform: uppercase;
+  min-width: 36px;
+}
+
+.spk-wave-btns {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.spk-wave-btn {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: 1px solid #3a4a42;
+  background: linear-gradient(180deg, #2a3530, #1e2824);
+  color: #9aaa9e;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.spk-wave-btn:hover {
+  background: #354038;
+  color: #ccc;
+}
+
+.spk-wave-btn.active {
+  background: linear-gradient(180deg, #3d6a52, #2a5040);
+  border-color: #4a8a6a;
+  color: #e8fff0;
+  box-shadow: 0 0 8px rgba(80, 180, 120, 0.25);
+}
+
+.spk-knobs-row {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.spk-freq-read {
+  font-family: ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: bold;
+  color: #7dd8a8;
+  text-align: center;
+  min-height: 18px;
+  margin-bottom: 2px;
+}
+
+.spk-trans {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding-top: 4px;
+  border-top: 1px solid #2a322e;
+}
+
+.spk-trans .btn-play3 {
+  background: linear-gradient(180deg, #1e5e1e, #144814);
+  color: #88dd88;
+}
+
+.spk-trans .btn-play3:hover {
+  background: linear-gradient(180deg, #236823, #185018);
+}
+
+.spk-trans .btn-play3.on {
+  background: linear-gradient(180deg, #33cc33, #228822);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(51, 204, 51, 0.5);
+}
+
+.spk-trans .btn-stop3 {
+  background: linear-gradient(180deg, #7a1a1a, #5a1010);
+  color: #ffaaaa;
+}
+
+.spk-trans .btn-stop3:hover {
+  background: linear-gradient(180deg, #902020, #6a1515);
+}
