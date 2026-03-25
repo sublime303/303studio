@@ -77,10 +77,16 @@
       const data = this.getStudioSongData();
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
+      const url = URL.createObjectURL(blob);
+      a.href = url;
       a.download = raw.replace(/[^a-z0-9_-]/gi, '_') + '.json';
+      // Some browsers (and KDE/portal download handlers) can fail if the object URL
+      // is revoked too quickly. Also keep the anchor in the DOM for reliability.
+      document.body?.appendChild(a);
       a.click();
-      URL.revokeObjectURL(a.href);
+      a.remove();
+      // Intentionally do not revoke the object URL immediately; some KDE/portal
+      // handlers can try to read it asynchronously.
     }
 
     importStudioSongFromText(text) {

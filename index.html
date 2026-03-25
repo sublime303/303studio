@@ -934,10 +934,13 @@ function doExport() {
   const data = getSongData(name);
   const blob = new Blob([JSON.stringify(data, null, 2)], {type: 'application/json'});
   const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
+  const url = URL.createObjectURL(blob);
+  a.href = url;
   a.download = name.replace(/[^a-z0-9_\-]/gi, '_') + '.json';
+  document.body?.appendChild(a);
   a.click();
-  URL.revokeObjectURL(a.href);
+  a.remove();
+  // Intentionally do not revoke the object URL here.
 }
 
 // ── Import ──

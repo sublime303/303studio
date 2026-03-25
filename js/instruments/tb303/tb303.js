@@ -552,10 +552,15 @@
     _export() {
       const d = this.getSongData();
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }));
+      const url = URL.createObjectURL(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }));
+      a.href = url;
       a.download = (this.name || 'tb303').replace(/[^a-z0-9_-]/gi, '_') + '.json';
+      document.body?.appendChild(a);
       a.click();
-      URL.revokeObjectURL(a.href);
+      a.remove();
+      // Some browsers (and KDE/portal download handlers) can fail if the object URL
+      // is revoked too quickly.
+      // Intentionally do not revoke the object URL.
     }
 
     _import(evt) {

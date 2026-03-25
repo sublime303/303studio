@@ -219,10 +219,13 @@
     _export() {
       const d = this.getSongData();
       const a = document.createElement('a');
-      a.href = URL.createObjectURL(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }));
+      const url = URL.createObjectURL(new Blob([JSON.stringify(d, null, 2)], { type: 'application/json' }));
+      a.href = url;
       a.download = (this.name || 'tr909').replace(/[^a-z0-9_-]/gi, '_') + '.json';
+      document.body?.appendChild(a);
       a.click();
-      URL.revokeObjectURL(a.href);
+      a.remove();
+      // Intentionally do not revoke the object URL.
     }
 
     _import(evt) {
