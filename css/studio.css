@@ -47,6 +47,7 @@ body{background:#080808;min-height:100vh;font-family:'Arial',sans-serif;padding-
 .studio-logo{display:flex;flex-direction:column;line-height:1;margin-right:8px}
 .studio-logo-main{font-size:18px;font-weight:900;color:#e8620a;letter-spacing:2px}
 .studio-logo-sub{font-size:8px;color:#555;letter-spacing:4px;text-transform:uppercase}
+.studio-logo-ben{font-size:8px;color:#e8280a;text-transform:uppercase}
 .studio-sep{width:1px;height:34px;background:#333;margin:0 4px}
 .studio-btn{
   padding:7px 14px;border-radius:4px;font-size:10px;font-weight:bold;

@@ -32,22 +32,6 @@ Realistic dark-theme interface shots in the same spirit as the main rack image (
   <sub>Header + top instruments focus</sub>
 </p>
 
-### Adorable synth illustrations
-
-<p align="center">
-  <img src="docs/images/303studio-hero-chibi-row.png" alt="Chibi kawaii synth characters in a row" width="1200"><br>
-  <sub>Chibi lineup — seven little machines with personality</sub>
-</p>
-
-<p align="center">
-  <img src="docs/images/303studio-hero-isometric.png" alt="Isometric cute toy synthesizers on a shelf" width="1200"><br>
-  <sub>Isometric shelf — glossy toy-style gear</sub>
-</p>
-
-<p align="center">
-  <img src="docs/images/303studio-hero-pastel-float.png" alt="Pastel floating synth icons" width="1200"><br>
-  <sub>Pastel float — soft shapes and sparkles</sub>
-</p>
 
 <p align="center">
   <img src="docs/images/303studio-hero-cozy-desk.png" alt="Cozy night desk with glowing synths" width="1200"><br>
