@@ -1,0 +1,214 @@
+/* ═══════════════════════════════════════════════════════
+   CR-78 COMPURHYTHM INSTRUMENT STYLES
+   Chrome/silver aesthetic with wood-panel accents.
+   Owner: CR-78 agent — do not edit from other agents
+   ═══════════════════════════════════════════════════════ */
+
+/* ── Card / outer shell ─────────────────────────────── */
+.cr78-card {
+  background: linear-gradient(170deg, #c8c8d8, #b0b0c0);
+  padding: 14px 16px 16px;
+  position: relative;
+}
+
+/* Subtle horizontal scan-line texture over the chrome */
+.cr78-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.04) 0,
+    rgba(255,255,255,0.0)  1px,
+    rgba(0,0,0,0.02)       2px,
+    rgba(0,0,0,0.0)        3px
+  );
+}
+
+/* ── Header bar ─────────────────────────────────────── */
+.cr78-header-bar {
+  background: #8a8a9a;
+}
+.cr78-header-bar .inst-title {
+  color: #ffffff;
+}
+.cr78-header-bar .inst-type-tag {
+  background: rgba(0, 0, 0, 0.25);
+  color: #eeeeff;
+}
+
+/* ── Badge ──────────────────────────────────────────── */
+.badge-cr78 {
+  background: #6a6a8a;
+  color: #eeeeff;
+}
+
+/* ── Dark inner panel (sequencer / transport area) ──── */
+.cr78-panel {
+  background: linear-gradient(180deg, #1e1e28, #161620);
+  border-radius: 7px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.55),
+              0 1px 0 rgba(255, 255, 255, 0.08);
+}
+.cr78-panel:last-child {
+  margin-bottom: 0;
+}
+
+/* Section label */
+.cr78-lbl {
+  font-size: 8px;
+  color: #7070a0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 9px;
+  text-align: center;
+}
+
+/* ── Voice rows ─────────────────────────────────────── */
+.cr78-voice-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+.cr78-voice-row:last-child {
+  margin-bottom: 0;
+}
+
+.cr78-voice-name {
+  font-size: 9px;
+  font-weight: bold;
+  color: #c8c8e8;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  width: 30px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* ── Step buttons ───────────────────────────────────── */
+.cr78-steps {
+  display: flex;
+  gap: 3px;
+}
+
+.cr78-step {
+  width: 24px;
+  height: 28px;
+  background: #28283a;
+  border: 1px solid #484868;
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.07s;
+  position: relative;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+.cr78-step:active {
+  transform: translateY(1px);
+}
+
+/* Active (step is on) — bright silver/white with blue glow */
+.cr78-step.active {
+  background: radial-gradient(circle, #e0e0ff, #a0a0d0);
+  border-color: #b0b0e0;
+  box-shadow: 0 0 6px rgba(160, 160, 255, 0.65),
+              inset 0 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+/* Playing highlight — cyan glow */
+.cr78-step.playing {
+  background: radial-gradient(circle, #80ffff, #30c0d0);
+  border-color: #60e0e0;
+  box-shadow: 0 0 10px rgba(80, 220, 240, 0.8),
+              inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* Active + playing together */
+.cr78-step.active.playing {
+  background: radial-gradient(circle, #ffffff, #80e0ff);
+  box-shadow: 0 0 12px rgba(120, 230, 255, 0.9),
+              inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* Gap between beat groups */
+.cr78-step-gap {
+  width: 5px;
+  flex-shrink: 0;
+}
+
+/* ── Per-voice knob area ─────────────────────────────── */
+.cr78-voice-knobs {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-left: 6px;
+}
+
+/* ── Transport panel ─────────────────────────────────── */
+.cr78-transport {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.cr78-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.cr78-btn-play {
+  background: linear-gradient(180deg, #2a3a2a, #1a2a1a);
+  color: #aaddaa;
+  padding: 7px 14px;
+}
+.cr78-btn-play:hover {
+  background: linear-gradient(180deg, #3a4a3a, #2a3a2a);
+}
+.cr78-btn-play.on {
+  background: linear-gradient(180deg, #44cc44, #339933);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(68, 204, 68, 0.4);
+}
+
+.cr78-btn-stop {
+  background: linear-gradient(180deg, #3a2a3a, #2a1a2a);
+  color: #ddaadd;
+  padding: 7px 14px;
+}
+.cr78-btn-stop:hover {
+  background: linear-gradient(180deg, #4a3a4a, #3a2a3a);
+}
+
+/* ── Preset / utility buttons ───────────────────────── */
+.cr78-pat-btns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.cr78-pat-b {
+  padding: 5px 9px;
+  background: #2e2e42;
+  border: 1px solid #484868;
+  border-radius: 3px;
+  color: #8888b8;
+  font-size: 8px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.1s;
+}
+.cr78-pat-b:hover {
+  background: #3a3a52;
+  color: #c0c0e0;
+  border-color: #8080b0;
+}
+.cr78-pat-b:active {
+  transform: translateY(1px);
+}

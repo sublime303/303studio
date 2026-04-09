@@ -1,0 +1,529 @@
+/* ─────────────────────────────────────────────────────────────
+   Oberheim OB-Xa Polysynth — deep maroon / burgundy theme
+   Gold/amber accents, cream piano keys
+───────────────────────────────────────────────────────────── */
+
+/* ── Header bar ─────────────────────────────────────────── */
+.obxa-header-bar {
+  background: #6a1a2a;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 6px 6px 0 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #8a2a3a;
+}
+
+.obxa-header-bar .inst-title {
+  color: #ffd080;
+}
+
+.obxa-header-bar .inst-type-tag {
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffd080;
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  letter-spacing: 1px;
+}
+
+.obxa-header-bar .tag {
+  color: #ffd080;
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.85;
+}
+
+/* ── Badge ──────────────────────────────────────────────── */
+.badge-obxa {
+  background: #6a1a2a;
+  color: #ffd080;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* ── Card ───────────────────────────────────────────────── */
+.obxa-card {
+  background: linear-gradient(170deg, #3a1520 0%, #2a0e18 100%);
+  padding: 14px 16px 16px;
+  border-radius: 0 0 8px 8px;
+  border: 1px solid #5a1525;
+  border-top: none;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Panel ──────────────────────────────────────────────── */
+.obxa-panel {
+  background: linear-gradient(180deg, #1a080e 0%, #100608 100%);
+  border-radius: 7px;
+  padding: 12px 14px;
+  box-shadow: inset 0 1px 4px rgba(0,0,0,0.8), inset 0 0 1px rgba(180,80,80,0.12);
+  margin-bottom: 8px;
+}
+
+/* ── Section labels ─────────────────────────────────────── */
+.obxa-lbl {
+  color: #aa6666;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 9px;
+}
+
+.obxa-sub-lbl {
+  color: #aa6666;
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+/* ── Controls row ───────────────────────────────────────── */
+.obxa-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* ── OSC section ────────────────────────────────────────── */
+.obxa-osc-sect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.obxa-wave-row {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+}
+
+/* ── Wave buttons (SAW / SQU) ──────────────────────────── */
+.obxa-wave-btn {
+  background: #1a0810;
+  color: #8a4444;
+  border: 1px solid #3a1520;
+  border-radius: 3px;
+  padding: 4px 7px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  min-width: 36px;
+  text-align: center;
+}
+
+.obxa-wave-btn:hover {
+  border-color: #6a2a30;
+  color: #cc8888;
+}
+
+.obxa-wave-btn.active {
+  background: #2a0a14;
+  color: #ffd080;
+  border-color: #cc9940;
+  box-shadow: 0 0 6px rgba(204,153,64,0.45), inset 0 0 4px rgba(204,153,64,0.1);
+}
+
+/* ── Chorus section ─────────────────────────────────────── */
+.obxa-chorus-sect {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Toggle button (CHORUS) ─────────────────────────────── */
+.obxa-btn {
+  background: #1a0810;
+  color: #8a4444;
+  border: 1px solid #3a1520;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.12s ease;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+  min-width: 54px;
+}
+
+.obxa-btn:hover {
+  border-color: #6a2a30;
+  color: #cc8888;
+}
+
+.obxa-btn.active {
+  background: #2a0a14;
+  color: #ffd080;
+  border-color: #cc9940;
+  box-shadow: 0 0 6px rgba(204,153,64,0.5), inset 0 0 4px rgba(204,153,64,0.1);
+}
+
+/* ── Steps row ──────────────────────────────────────────── */
+.obxa-steps-row {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Individual step button ─────────────────────────────── */
+.obxa-step {
+  width: 42px;
+  height: 54px;
+  background: #12040a;
+  border: 2px solid #2a0e18;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  transition: border-color 0.1s ease, background 0.1s ease;
+  user-select: none;
+  flex-shrink: 0;
+}
+
+.obxa-step:hover {
+  border-color: #4a1a26;
+  background: #1a080e;
+}
+
+.obxa-step.selected {
+  border-color: #cc9940;
+  box-shadow: 0 0 5px rgba(204,153,64,0.4);
+}
+
+.obxa-step.playing {
+  background: #2a0a12;
+  border-color: #ffd080;
+  box-shadow: 0 0 12px rgba(255,208,128,0.7), inset 0 0 6px rgba(255,208,128,0.15);
+}
+
+.obxa-step.has-chord {
+  background: #180810;
+  border-top: 2px solid #7a2a30;
+}
+
+.obxa-step.is-rest {
+  background: #0c0308;
+  border-color: #1a0810;
+}
+
+.obxa-step-root {
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffd080;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.obxa-step-type {
+  font-size: 8px;
+  color: #aa6644;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  font-family: 'Courier New', monospace;
+}
+
+.obxa-step-rest {
+  font-size: 12px;
+  color: #3a1520;
+  font-style: italic;
+  font-family: 'Courier New', monospace;
+}
+
+/* ── Editor row ─────────────────────────────────────────── */
+.obxa-editor-row {
+  display: flex;
+  flex-direction: row;
+  gap: 14px;
+  align-items: flex-start;
+  justify-content: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Piano wrap ─────────────────────────────────────────── */
+.obxa-piano-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* ── Piano keyboard ─────────────────────────────────────── */
+.obxa-piano {
+  position: relative;
+  height: 52px;
+  width: 224px;
+}
+
+.obxa-wkey {
+  position: absolute;
+  top: 0;
+  height: 52px;
+  background: linear-gradient(to bottom, #e8d8c0 0%, #f5ead8 60%, #ede0ca 100%);
+  border: 1px solid #4a2030;
+  border-top: none;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3px;
+  transition: background 0.1s ease;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.obxa-wkey span {
+  font-size: 7px;
+  color: #6a3040;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.obxa-wkey:hover {
+  background: linear-gradient(to bottom, #e8c080 0%, #f5d898 60%, #edcc80 100%);
+}
+
+.obxa-wkey.active {
+  background: linear-gradient(to bottom, #cc9940 0%, #ffd080 60%, #cc9940 100%);
+  border-color: #8a5a10;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.obxa-wkey.active span {
+  color: #3a1010;
+}
+
+.obxa-bkey {
+  position: absolute;
+  top: 0;
+  width: 18px;
+  height: 32px;
+  background: linear-gradient(to bottom, #2a0e18 0%, #160408 100%);
+  border: 1px solid #0e0408;
+  border-top: none;
+  border-radius: 0 0 2px 2px;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.1s ease;
+}
+
+.obxa-bkey:hover {
+  background: linear-gradient(to bottom, #3a1020 0%, #200810 100%);
+}
+
+.obxa-bkey.active {
+  background: linear-gradient(to bottom, #8a5a10 0%, #6a3a08 100%);
+  box-shadow: 0 0 6px rgba(204,153,64,0.6);
+}
+
+/* ── Chord props panel ──────────────────────────────────── */
+.obxa-chord-props {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ── Chord type row ─────────────────────────────────────── */
+.obxa-type-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 3px;
+  max-width: 220px;
+}
+
+.obxa-type-btn {
+  background: #1a0810;
+  color: #8a4444;
+  border: 1px solid #3a1520;
+  border-radius: 3px;
+  padding: 3px 7px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.1s ease;
+  text-transform: lowercase;
+  min-width: 32px;
+  text-align: center;
+}
+
+.obxa-type-btn:hover {
+  border-color: #6a2a30;
+  color: #cc8888;
+  background: #200a12;
+}
+
+.obxa-type-btn.active {
+  background: #2a0a14;
+  color: #ffd080;
+  border-color: #cc9940;
+  box-shadow: 0 0 5px rgba(204,153,64,0.4);
+}
+
+/* ── Octave + rest row ──────────────────────────────────── */
+.obxa-oct-row {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.obxa-prop-btn {
+  background: #1a0810;
+  color: #8a4444;
+  border: 1px solid #3a1520;
+  border-radius: 3px;
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  transition: all 0.1s ease;
+  text-align: center;
+}
+
+.obxa-prop-btn:hover {
+  border-color: #6a2a30;
+  color: #cc8888;
+  background: #200a12;
+}
+
+.obxa-prop-btn.active {
+  background: #2a0a14;
+  color: #ffd080;
+  border-color: #cc9940;
+  box-shadow: 0 0 5px rgba(204,153,64,0.4);
+}
+
+/* ── Transport row ──────────────────────────────────────── */
+.obxa-transport {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.obxa-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+}
+
+/* ── Play / Stop buttons ────────────────────────────────── */
+.btn-play-obxa {
+  background: linear-gradient(to bottom, #2a0c16 0%, #1a0810 100%);
+  color: #cc7040;
+  border: 1px solid #5a2010;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.12s ease;
+}
+
+.btn-play-obxa:hover {
+  border-color: #8a3820;
+  color: #ee9060;
+  background: linear-gradient(to bottom, #38101e 0%, #241010 100%);
+}
+
+.btn-play-obxa.on {
+  background: linear-gradient(to bottom, #3a0e18 0%, #280a10 100%);
+  color: #ffd080;
+  border-color: #cc9940;
+  box-shadow: 0 0 10px rgba(204,153,64,0.6), inset 0 0 6px rgba(204,153,64,0.1);
+}
+
+.btn-stop-obxa {
+  background: linear-gradient(to bottom, #3a1010 0%, #280a0a 100%);
+  color: #aa5a5a;
+  border: 1px solid #5a2020;
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.12s ease;
+}
+
+.btn-stop-obxa:hover {
+  border-color: #7a3030;
+  color: #cc7a7a;
+  background: linear-gradient(to bottom, #4a1818 0%, #381010 100%);
+}
+
+/* ── Preset buttons ─────────────────────────────────────── */
+.obxa-pat-btns {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.pat-b-obxa {
+  background: #1a080e;
+  color: #aa6655;
+  border: 1px solid #3a1520;
+  border-radius: 3px;
+  padding: 4px 9px;
+  font-size: 9px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: all 0.1s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.pat-b-obxa:hover {
+  background: #22080e;
+  color: #cc8866;
+  border-color: #5a2535;
+}
+
+.pat-b-obxa:active {
+  background: #2a0a14;
+  color: #ffd080;
+  border-color: #cc9940;
+}

@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "type": "TB303",
+  "name": "TB-303 #1",
+  "bpm": 125,
+  "waveform": "sawtooth",
+  "knobs": {
+    "tune": 0,
+    "cutoff": 0.38,
+    "reso": 0.7199731306596235,
+    "envMod": 0.62,
+    "decay": 0.35,
+    "accent": 0.7
+  },
+  "steps": [
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": true,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": true,
+      "slide": false,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 1,
+      "accent": false,
+      "slide": false,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": false,
+      "rest": true
+    },
+    {
+      "note": "G",
+      "octave": 0,
+      "accent": false,
+      "slide": true,
+      "rest": false
+    },
+    {
+      "note": "G",
+      "octave": 0,
+      "accent": true,
+      "slide": false,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": true,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": false,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": true,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": true,
+      "slide": false,
+      "rest": false
+    },
+    {
+      "note": "C",
+      "octave": 1,
+      "accent": false,
+      "slide": false,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": false,
+      "rest": true
+    },
+    {
+      "note": "G#",
+      "octave": 0,
+      "accent": false,
+      "slide": true,
+      "rest": false
+    },
+    {
+      "note": "G#",
+      "octave": 0,
+      "accent": true,
+      "slide": false,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": true,
+      "rest": false
+    },
+    {
+      "note": "A",
+      "octave": 0,
+      "accent": false,
+      "slide": false,
+      "rest": false
+    }
+  ]
+}

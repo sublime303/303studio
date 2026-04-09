@@ -1,0 +1,383 @@
+/* ═══════════════════════════════════════════════════
+   MS-20 INSTRUMENT STYLES
+   Owner: MS-20 agent — do not edit from other agents
+   ═══════════════════════════════════════════════════ */
+
+/* Header bar — olive green */
+.ms20-header-bar { background: #4a5a1a; }
+.ms20-header-bar .inst-title { color: #fff; }
+.ms20-header-bar .inst-type-tag { background: rgba(0,0,0,0.3); color: #ccdd88; }
+
+/* Card body — cream/olive beige gradient (real MS-20 body colour) */
+.ms20-card {
+  background: linear-gradient(170deg, #d8d4b8, #c4c0a0);
+  padding: 14px 16px 16px;
+  position: relative;
+}
+.ms20-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(255,255,255,0.05) 0,
+    rgba(255,255,255,0) 1px,
+    rgba(255,255,255,0) 3px,
+    rgba(255,255,255,0.05) 4px
+  );
+}
+
+/* Dark panel sections — olive-black */
+.ms20-panel {
+  background: linear-gradient(180deg, #1a1e08, #10130a);
+  border-radius: 7px;
+  padding: 12px 14px;
+  margin-bottom: 8px;
+  box-shadow:
+    inset 0 2px 6px rgba(0,0,0,0.7),
+    inset 0 -1px 0 rgba(180,200,80,0.04),
+    0 1px 3px rgba(0,0,0,0.4);
+}
+.ms20-panel:last-child { margin-bottom: 0; }
+
+/* Labels */
+.ms20-lbl {
+  font-size: 8px;
+  color: #6a7a2a;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 9px;
+  text-align: center;
+}
+
+/* Synth controls row — two sections side by side */
+.ms20-synth-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* OSC section */
+.ms20-osc-sect {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 160px;
+}
+
+.ms20-osc-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ms20-osc-lbl {
+  font-size: 8px;
+  color: #6a7a2a;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  min-width: 38px;
+}
+
+/* OSC wave buttons */
+.ms20-wave-btn {
+  width: 44px;
+  height: 20px;
+  background: #1e2408;
+  border: 1px solid #2e3410;
+  border-radius: 3px;
+  color: #6a7a2a;
+  font-size: 8px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6);
+  transition: all 0.1s;
+}
+.ms20-wave-btn:hover { background: #283010; color: #99bb44; }
+.ms20-wave-btn.active {
+  background: #4a5a1a;
+  color: #ccdd88;
+  border-color: #3a4a10;
+  box-shadow: 0 0 8px rgba(100,140,20,0.55), 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Detune row */
+.ms20-detune-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ms20-detune-btn {
+  width: 22px;
+  height: 20px;
+  background: #1e2408;
+  border: 1px solid #2e3410;
+  border-radius: 3px;
+  color: #6a7a2a;
+  font-size: 9px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.ms20-detune-btn:hover { background: #283010; color: #99bb44; }
+.ms20-detune-btn:active { transform: translateY(1px); }
+
+.ms20-detune-disp {
+  min-width: 28px;
+  height: 20px;
+  background: #0c0e04;
+  border: 1px solid #2a3010;
+  border-radius: 3px;
+  color: #88aa22;
+  font-size: 10px;
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
+  line-height: 20px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* Filter + envelope section */
+.ms20-filt-sect {
+  flex: 1;
+  min-width: 260px;
+}
+
+.ms20-knob-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+/* Step sequencer row */
+.ms20-steps-row {
+  display: flex;
+  gap: 3px;
+  justify-content: center;
+  margin-bottom: 10px;
+  flex-wrap: nowrap;
+}
+
+/* Step buttons */
+.ms20-step {
+  width: 46px;
+  height: 50px;
+  background: linear-gradient(180deg, #1e2408, #121604);
+  border: 2px solid #111;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.6), inset 0 1px 0 rgba(180,200,80,0.04);
+  transition: border-color 0.08s;
+  flex-shrink: 0;
+}
+.ms20-step:active { transform: translateY(1px); }
+
+.ms20-step.selected {
+  border-color: #ccdd88;
+  background: linear-gradient(180deg, #282e0c, #1a2008);
+}
+
+.ms20-step.playing {
+  background: linear-gradient(180deg, #2e3800, #1c2400);
+  border-color: #88aa22;
+  box-shadow: 0 0 10px rgba(136,170,34,0.65), 0 0 20px rgba(100,140,20,0.3);
+}
+
+.ms20-step.has-note {
+  background: linear-gradient(180deg, #222a08, #181e06);
+  border-top: 2px solid #4a5a1a;
+}
+
+.ms20-step.is-rest {
+  background: linear-gradient(180deg, #141806, #0e1004);
+}
+
+/* Step content */
+.ms20-step-note {
+  font-size: 11px;
+  font-weight: bold;
+  color: #88aa22;
+}
+.ms20-step.is-rest .ms20-step-note { display: none; }
+
+.ms20-step-oct {
+  font-size: 8px;
+  color: #6a7a2a;
+  min-height: 9px;
+}
+
+.ms20-step-rest {
+  font-size: 12px;
+  color: #2e3810;
+  font-style: italic;
+}
+
+/* Note entry area */
+.ms20-note-entry {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* Piano wrap */
+.ms20-piano-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+/* Piano keyboard */
+.ms20-piano {
+  position: relative;
+  height: 58px;
+  width: 252px;
+  flex-shrink: 0;
+}
+
+/* White keys — cream/olive tint */
+.ms20-wkey {
+  position: absolute;
+  height: 58px;
+  background: linear-gradient(180deg, #d8d4b8, #c8c4a4);
+  border: 1px solid #8a8870;
+  border-radius: 0 0 4px 4px;
+  cursor: pointer;
+  z-index: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 3px;
+  transition: background 0.05s;
+}
+.ms20-wkey span { font-size: 7px; color: #6a6850; font-weight: bold; }
+.ms20-wkey:hover { background: linear-gradient(180deg, #c8d890, #a8b860); }
+.ms20-wkey.active { background: linear-gradient(180deg, #6a8a18, #4a5a10) !important; }
+.ms20-wkey.active span { color: #ccdd88; }
+
+/* Black keys */
+.ms20-bkey {
+  position: absolute;
+  height: 36px;
+  width: 22px;
+  background: linear-gradient(180deg, #1e2408, #0c0e04);
+  border: 1px solid #000;
+  border-radius: 0 0 3px 3px;
+  cursor: pointer;
+  z-index: 2;
+  top: 0;
+  transition: background 0.05s;
+}
+.ms20-bkey:hover { background: linear-gradient(180deg, #3a4a10, #283010); }
+.ms20-bkey.active { background: linear-gradient(180deg, #6a8a18, #4a5a10) !important; }
+
+/* Step properties */
+.ms20-step-props {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 2px;
+}
+
+.ms20-prop-row {
+  display: flex;
+  gap: 5px;
+}
+
+.ms20-prop-btn {
+  padding: 5px 10px;
+  background: #1e2408;
+  border: 1px solid #181e06;
+  border-radius: 3px;
+  color: #6a7a2a;
+  font-size: 9px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.1s;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.ms20-prop-btn:hover { background: #283010; color: #99bb44; }
+.ms20-prop-btn.active {
+  background: #4a5a1a;
+  color: #ccdd88;
+  border-color: #3a4a10;
+  box-shadow: 0 0 6px rgba(100,140,20,0.45);
+}
+
+/* Transport */
+.ms20-transport {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.ms20-btns {
+  display: flex;
+  gap: 7px;
+}
+
+/* Play button */
+.btn-play-ms20 {
+  background: linear-gradient(180deg, #2a3a08, #1a2404);
+  color: #88aa22;
+}
+.btn-play-ms20:hover { background: linear-gradient(180deg, #384a0c, #243008); }
+.btn-play-ms20.on {
+  background: linear-gradient(180deg, #6a8a18, #4a5a10);
+  color: #ccdd88;
+  box-shadow: 0 0 10px rgba(136,170,34,0.55);
+}
+
+/* Stop button */
+.btn-stop-ms20 {
+  background: linear-gradient(180deg, #3a2a08, #281e06);
+  color: #aa8822;
+}
+.btn-stop-ms20:hover { background: linear-gradient(180deg, #4a380c, #30280a); }
+
+/* Preset buttons container */
+.pat-btns-ms20 {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Preset buttons */
+.pat-b-ms20 {
+  padding: 5px 9px;
+  background: #1e2408;
+  border: 1px solid #181e06;
+  border-radius: 3px;
+  color: #6a7a2a;
+  font-size: 8px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.1s;
+}
+.pat-b-ms20:hover { background: #283010; color: #99bb44; }
+
+/* Badge */
+.badge-ms20 {
+  background: #4a5a1a;
+  color: #ccdd88;
+}

@@ -1,0 +1,16 @@
+/* ═══════════════════════════════════════════════════
+   TB-303 (TIE) STYLES (adds Tie indicator)
+   ═══════════════════════════════════════════════════ */
+
+/* Reuse the base TB-303 styles; this file only extends visuals */
+.step-t{
+  position:absolute;
+  bottom:2px;
+  left:2px;
+  font-size:7px;
+  color:#88cc88;
+  font-weight:bold;
+  display:none;
+}
+.step-btn.has-tie .step-t{display:block}
+
